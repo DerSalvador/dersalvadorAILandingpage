@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DerSalvador AI | KI-gestützte DevOps-Automatisierung</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #0F172A;
+    --accent: #10B981;
+    --accent-light: #34D399;
+    --accent-glow: rgba(16, 185, 129, 0.12);
+    --bg: #FAFBFC;
+    --card-bg: #FFFFFF;
+    --text: #1E293B;
+    --text-muted: #64748B;
+    --border: #E2E8F0;
+    --success: #10B981;
+    --gradient-1: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    --gradient-2: linear-gradient(135deg, #111827 0%, #1F2937 100%);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Navigation */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 32px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo { font-weight: 800; font-size: 20px; color: var(--primary); }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* Hero */
+  .hero {
+    padding: 160px 32px 100px;
+    max-width: 1200px; margin: 0 auto;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-glow); border: 1px solid rgba(16,185,129,0.2);
+    padding: 8px 20px; border-radius: 100px;
+    font-size: 13px; font-weight: 600; color: var(--accent);
+    margin-bottom: 32px;
+  }
+  .hero-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 20px;
+    color: var(--text-muted);
+    max-width: 640px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+  }
+  .hero-cta {
+    display: inline-flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+  }
+  .btn-primary {
+    background: var(--gradient-1);
+    color: white; padding: 16px 36px;
+    border-radius: 12px; font-weight: 600; font-size: 16px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(16,185,129,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(16,185,129,0.4); }
+  .btn-secondary {
+    background: white; color: var(--text); padding: 16px 36px;
+    border-radius: 12px; font-weight: 600; font-size: 16px;
+    text-decoration: none; border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Stats bar */
+  .stats-bar {
+    max-width: 900px; margin: 80px auto 0;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--border); border-radius: 16px; overflow: hidden;
+  }
+  .stat {
+    background: white; padding: 32px 24px; text-align: center;
+  }
+  .stat-number {
+    font-size: 32px; font-weight: 800;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+
+  /* Sections */
+  section {
+    max-width: 1200px; margin: 0 auto;
+    padding: 100px 32px;
+  }
+  .section-tag {
+    font-size: 13px; font-weight: 700; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800; line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .section-desc {
+    font-size: 18px; color: var(--text-muted);
+    max-width: 640px; margin-bottom: 48px;
+  }
+
+  /* Services Grid */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .service-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 16px; padding: 36px;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 40px rgba(16,185,129,0.1);
+    transform: translateY(-4px);
+  }
+  .service-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 20px;
+    background: var(--accent-glow);
+  }
+  .service-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+  .service-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .service-tag {
+    display: inline-block; margin-top: 16px;
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    background: var(--accent-glow); padding: 4px 12px; border-radius: 6px;
+  }
+
+  /* ITBench Section */
+  .itbench-section {
+    background: var(--gradient-2);
+    border-radius: 24px;
+    padding: 80px 48px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .itbench-section::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .itbench-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: center; position: relative; z-index: 1;
+  }
+  .itbench-left .section-tag { color: var(--accent-light); }
+  .itbench-left h2 {
+    font-size: 36px; font-weight: 800; line-height: 1.2;
+    margin-bottom: 20px; color: white;
+  }
+  .itbench-left p { font-size: 16px; opacity: 0.8; line-height: 1.8; margin-bottom: 24px; }
+  .itbench-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    margin-top: 32px;
+  }
+  .itbench-stat {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 20px; text-align: center;
+  }
+  .itbench-stat .num {
+    font-size: 28px; font-weight: 800; color: var(--accent-light);
+    display: block; margin-bottom: 4px;
+  }
+  .itbench-stat .lbl { font-size: 11px; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.05em; }
+  .itbench-right {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 36px;
+  }
+  .itbench-flow-step {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .itbench-flow-step:last-child { border-bottom: none; }
+  .flow-num {
+    width: 32px; height: 32px; min-width: 32px;
+    border-radius: 8px; background: rgba(16,185,129,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: var(--accent-light);
+  }
+  .flow-content h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .flow-content p { font-size: 13px; opacity: 0.6; line-height: 1.6; }
+  .ibm-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 8px 16px; border-radius: 8px;
+    font-size: 12px; font-weight: 600; margin-top: 24px;
+    color: rgba(255,255,255,0.7);
+  }
+  .ibm-badge strong { color: white; }
+  @media (max-width: 768px) {
+    .itbench-grid { grid-template-columns: 1fr; gap: 40px; }
+    .itbench-stats { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Process */
+  .process-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  }
+  .process-step {
+    text-align: center; padding: 32px 20px;
+    position: relative;
+  }
+  .step-number {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--gradient-1);
+    color: white; font-weight: 800; font-size: 24px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .process-step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .process-step p { font-size: 13px; color: var(--text-muted); }
+
+  /* Tech Stack */
+  .tech-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px;
+  }
+  .tech-item {
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px 16px;
+    text-align: center; font-size: 13px; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .tech-item:hover { border-color: var(--accent); background: var(--accent-glow); }
+  .tech-item .icon { font-size: 28px; margin-bottom: 8px; display: block; }
+
+  /* Pricing */
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .pricing-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 16px; padding: 40px; position: relative;
+  }
+  .pricing-card.featured {
+    border-color: var(--accent);
+    box-shadow: 0 8px 40px rgba(16,185,129,0.15);
+  }
+  .pricing-card.featured::before {
+    content: 'Beliebtestes Paket';
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gradient-1); color: white;
+    padding: 4px 16px; border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+  }
+  .pricing-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .pricing-card .price {
+    font-size: 40px; font-weight: 900; margin: 16px 0;
+  }
+  .pricing-card .price span { font-size: 16px; font-weight: 500; color: var(--text-muted); }
+  .pricing-card ul {
+    list-style: none; padding: 0; margin: 24px 0;
+  }
+  .pricing-card li {
+    padding: 8px 0; font-size: 14px; color: var(--text-muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .pricing-card li::before { content: '✓'; color: var(--success); font-weight: 700; }
+
+  /* CTA Section */
+  .cta-section {
+    background: var(--gradient-2);
+    border-radius: 24px; padding: 80px 48px;
+    text-align: center; color: white;
+    margin: 0 32px;
+    max-width: 1136px;
+    margin-left: auto; margin-right: auto;
+  }
+  .cta-section h2 { font-size: 36px; font-weight: 800; margin-bottom: 16px; }
+  .cta-section p { font-size: 18px; opacity: 0.8; margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+  /* Contact Form */
+  .contact-form {
+    max-width: 480px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .contact-form input, .contact-form select {
+    padding: 14px 20px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1);
+    color: white; font-size: 15px; font-family: inherit;
+  }
+  .contact-form input::placeholder { color: rgba(255,255,255,0.5); }
+  .contact-form select option { color: var(--text); background: white; }
+  .contact-form button {
+    background: white; color: var(--primary);
+    padding: 16px; border-radius: 10px;
+    font-weight: 700; font-size: 16px;
+    border: none; cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .contact-form button:hover { transform: translateY(-2px); }
+
+  /* Footer */
+  footer {
+    max-width: 1200px; margin: 0 auto;
+    padding: 60px 32px 40px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: var(--text-muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .services-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+    .tech-grid { grid-template-columns: repeat(3, 1fr); }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Der<span>Salvador</span> AI</div>
+    <div class="nav-links">
+      <a href="#services">Leistungen</a>
+      <a href="#itbench">ITBench</a>
+      <a href="#process">Ablauf</a>
+      <a href="#tech">Technologie</a>
+      <a href="#pricing">Pakete</a>
+      <a href="#contact" class="btn-primary" style="padding:10px 24px; font-size:14px;">Erstgespräch buchen</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">AI-DevOps-Automatisierung f&uuml;r den Mittelstand</div>
+  <h1>Ihre DevOps-Pipeline.<br><em>Intelligent automatisiert.</em></h1>
+  <p>Wir implementieren KI-gest&uuml;tzte DevOps-L&ouml;sungen &ndash; benchmarked mit IBM ITBench &ndash; die Deployment-Zeiten um 70% reduzieren, Incidents automatisch beheben und Ihrem Team Stunden manueller Arbeit ersparen.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Kostenlose Analyse anfragen</a>
+    <a href="#services" class="btn-secondary">Leistungen entdecken</a>
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-number">15+</div><div class="stat-label">Jahre DevOps-Erfahrung</div></div>
+    <div class="stat"><div class="stat-number">70%</div><div class="stat-label">Schnellere Deployments</div></div>
+    <div class="stat"><div class="stat-number">40+</div><div class="stat-label">Automatisierte Pipelines</div></div>
+    <div class="stat"><div class="stat-number">€3.3B</div><div class="stat-label">AI-Agent Markt DE 2030</div></div>
+  </div>
+</div>
+
+<!-- Services -->
+<section id="services">
+  <div class="section-tag">Leistungen</div>
+  <div class="section-title">KI trifft Infrastruktur</div>
+  <div class="section-desc">Wir verbinden tiefes DevOps-Know-how mit modernster KI &ndash; f&uuml;r Automatisierung, die wirklich funktioniert.</div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🤖</div>
+      <h3>AI-Incident Response</h3>
+      <p>Automatische Erkennung, Analyse und Behebung von Infrastructure-Incidents durch KI-Agenten. Powered by IBM ITBench SRE &ndash; reduziert MTTR um bis zu 80%.</p>
+      <span class="service-tag">ITBench + CrewAI + K8s</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔄</div>
+      <h3>Intelligente CI/CD</h3>
+      <p>KI-optimierte Pipelines, die automatisch Tests priorisieren, Bottlenecks erkennen und Deployments intelligent schedulen.</p>
+      <span class="service-tag">GitHub Actions + AI Agents</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛡️</div>
+      <h3>AI Security Scanning</h3>
+      <p>Kontinuierliche Analyse von Terraform, Helm Charts und K8s-Manifesten auf Schwachstellen &ndash; bevor sie in Produktion gehen.</p>
+      <span class="service-tag">IaC + SAST + AI Review</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>Predictive Monitoring</h3>
+      <p>KI-basierte Vorhersage von Kapazit&auml;tsengp&auml;ssen und Performance-Problemen, bevor Ihre Nutzer sie bemerken.</p>
+      <span class="service-tag">Prometheus + Grafana + ML</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <h3>Workflow-Automatisierung</h3>
+      <p>n8n-basierte Automatisierung von repetitiven DevOps-Aufgaben: Ticket-Erstellung, Dokumentation, Change Management.</p>
+      <span class="service-tag">n8n + Claude + Jira</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">☁️</div>
+      <h3>Cloud Cost Intelligence</h3>
+      <p>KI-gest&uuml;tzte Analyse und Optimierung Ihrer Cloud-Kosten. Automatisches Right-Sizing und Spot-Instance-Management.</p>
+      <span class="service-tag">AWS + Azure + FinOps</span>
+    </div>
+  </div>
+</section>
+
+<!-- ITBench -->
+<section id="itbench">
+  <div class="itbench-section">
+    <div class="itbench-grid">
+      <div class="itbench-left">
+        <div class="section-tag">Unser Kern-Framework</div>
+        <h2>AI-Readiness Audit<br>powered by IBM ITBench</h2>
+        <p>Wir nutzen IBMs Open-Source-Framework ITBench, um Ihre Infrastruktur mit 94 realen SRE-Szenarien zu testen. So erfahren Sie exakt, welche Incidents AI heute schon automatisch l&ouml;sen kann &ndash; und wo menschliche Expertise unverzichtbar bleibt.</p>
+        <p>Aktuelle Benchmarks zeigen: State-of-the-Art AI-Agenten l&ouml;sen nur 13,8% der SRE-Szenarien. Mit unseren architektonischen Optimierungen (Multi-Agent-Systeme, State Machines, Summarizer Agents) steigern wir die L&ouml;sungsrate um bis zu 53%.</p>
+        <div class="itbench-stats">
+          <div class="itbench-stat">
+            <span class="num">94</span>
+            <span class="lbl">Reale Szenarien</span>
+          </div>
+          <div class="itbench-stat">
+            <span class="num">+53%</span>
+            <span class="lbl">Performance-Steigerung</span>
+          </div>
+          <div class="itbench-stat">
+            <span class="num">3</span>
+            <span class="lbl">Audit-Bereiche</span>
+          </div>
+        </div>
+        <div class="ibm-badge">
+          Basiert auf <strong>IBM Research &amp; UC Berkeley</strong> &middot; ICML 2025 &middot; AAAI 2026 &middot; Apache 2.0
+        </div>
+      </div>
+      <div class="itbench-right">
+        <div style="font-size:13px;font-weight:700;color:var(--accent-light);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px">So funktioniert das ITBench Audit</div>
+        <div class="itbench-flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-content">
+            <h4>Szenario-Deployment</h4>
+            <p>Wir deployen reale Incident-Szenarien in einer isolierten Kopie Ihrer Kubernetes/OpenShift-Umgebung &ndash; kein Risiko f&uuml;r Produktion.</p>
+          </div>
+        </div>
+        <div class="itbench-flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-content">
+            <h4>AI-Agent-Evaluation</h4>
+            <p>Unsere SRE-Agenten analysieren Logs, Metriken und Traces (Prometheus, Jaeger, ClickHouse), diagnostizieren Root Causes und testen Remediation-Strategien.</p>
+          </div>
+        </div>
+        <div class="itbench-flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-content">
+            <h4>MAST Failure Analysis</h4>
+            <p>Mit der Multi-Agent System Failure Taxonomy (MAST) identifizieren wir exakt, wo Agenten scheitern &ndash; und welche architektonischen &Auml;nderungen die gr&ouml;&szlig;te Wirkung haben.</p>
+          </div>
+        </div>
+        <div class="itbench-flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-content">
+            <h4>Readiness Report &amp; Roadmap</h4>
+            <p>Sie erhalten einen detaillierten Report mit Ihrem AI-Readiness-Score, priorisierten Automatisierungs-Empfehlungen und konkreter ROI-Berechnung.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section id="process">
+  <div class="section-tag">Unser Ablauf</div>
+  <div class="section-title">In 4 Wochen zur AI-Pipeline</div>
+  <div class="section-desc">Kein monatelanges Consulting. Wir liefern funktionierende Automatisierung.</div>
+  <div class="process-grid">
+    <div class="process-step">
+      <div class="step-number">1</div>
+      <h3>Infrastruktur-Audit</h3>
+      <p>Analyse Ihrer bestehenden CI/CD-Pipelines, Monitoring und Incident-Prozesse. Identifikation der gr&ouml;&szlig;ten Automatisierungspotenziale.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">2</div>
+      <h3>AI-Strategie</h3>
+      <p>Konkrete Roadmap mit priorisierten Use Cases, erwarteter Zeitersparnis und ROI-Berechnung f&uuml;r jeden Automatisierungsschritt.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">3</div>
+      <h3>Implementierung</h3>
+      <p>Done-for-You Umsetzung der AI-Workflows direkt in Ihrer Infrastruktur. Keine Theorie &ndash; funktionierende Automatisierung.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">4</div>
+      <h3>Training & Übergabe</h3>
+      <p>Ihr Team lernt, die AI-Systeme zu bedienen und weiterzuentwickeln. Inklusive Dokumentation und Support-Phase.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Tech Stack -->
+<section id="tech">
+  <div class="section-tag">Technologie</div>
+  <div class="section-title">Enterprise-grade Tech Stack</div>
+  <div class="section-desc">Wir arbeiten mit den Tools, die Sie bereits nutzen &ndash; und erweitern sie mit KI und IBM ITBench.</div>
+  <div class="tech-grid">
+    <div class="tech-item"><span class="icon">☸️</span>Kubernetes</div>
+    <div class="tech-item"><span class="icon">🏗️</span>Terraform</div>
+    <div class="tech-item"><span class="icon">🔄</span>GitHub Actions</div>
+    <div class="tech-item"><span class="icon">📦</span>Helm</div>
+    <div class="tech-item"><span class="icon">🤖</span>Claude AI</div>
+    <div class="tech-item"><span class="icon">⚡</span>n8n</div>
+    <div class="tech-item"><span class="icon">☁️</span>AWS</div>
+    <div class="tech-item"><span class="icon">🔷</span>Azure</div>
+    <div class="tech-item"><span class="icon">📊</span>Grafana</div>
+    <div class="tech-item"><span class="icon">🔥</span>Prometheus</div>
+    <div class="tech-item"><span class="icon">🦊</span>GitLab CI</div>
+    <div class="tech-item"><span class="icon">🐳</span>Docker</div>
+    <div class="tech-item" style="border-color:var(--accent);background:var(--accent-glow)"><span class="icon">🔬</span>IBM ITBench</div>
+    <div class="tech-item"><span class="icon">🧠</span>CrewAI</div>
+    <div class="tech-item"><span class="icon">🔗</span>LiteLLM</div>
+    <div class="tech-item"><span class="icon">🔍</span>Jaeger</div>
+    <div class="tech-item"><span class="icon">📝</span>ClickHouse</div>
+    <div class="tech-item"><span class="icon">🔐</span>Vault</div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing">
+  <div class="section-tag">Pakete</div>
+  <div class="section-title">Transparent &amp; fair</div>
+  <div class="section-desc">W&auml;hlen Sie das Paket, das zu Ihrem Automatisierungsgrad passt.</div>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <h3>Starter</h3>
+      <p style="font-size:14px;color:var(--text-muted)">F&uuml;r Teams, die AI testen wollen</p>
+      <div class="price">€4.900<span> / einmalig</span></div>
+      <ul>
+        <li>ITBench AI-Readiness Audit</li>
+        <li>AI-Readiness-Score &amp; Report</li>
+        <li>AI-Roadmap mit 3 Use Cases</li>
+        <li>1 automatisierter Workflow</li>
+        <li>Dokumentation &amp; 2h Training</li>
+      </ul>
+      <a href="#contact" class="btn-secondary" style="display:block;text-align:center">Anfragen</a>
+    </div>
+    <div class="pricing-card featured">
+      <h3>Professional</h3>
+      <p style="font-size:14px;color:var(--text-muted)">Komplette AI-DevOps Transformation</p>
+      <div class="price">€2.400<span> / Monat</span></div>
+      <ul>
+        <li>Alles aus Starter</li>
+        <li>5 automatisierte Workflows</li>
+        <li>ITBench SRE Agent Deployment</li>
+        <li>MAST Failure Analysis</li>
+        <li>Predictive Monitoring</li>
+        <li>Monatliche Optimierung + Support</li>
+      </ul>
+      <a href="#contact" class="btn-primary" style="display:block;text-align:center">Erstgespr&auml;ch buchen</a>
+    </div>
+    <div class="pricing-card">
+      <h3>Enterprise</h3>
+      <p style="font-size:14px;color:var(--text-muted)">F&uuml;r komplexe Infrastrukturen</p>
+      <div class="price">Individuell</div>
+      <ul>
+        <li>Alles aus Professional</li>
+        <li>Vollst&auml;ndiges ITBench (SRE + CISO + FinOps)</li>
+        <li>Custom Multi-Agent-Architektur</li>
+        <li>Dedizierter AI Engineer</li>
+        <li>EU AI Act Compliance</li>
+        <li>24/7 Support</li>
+      </ul>
+      <a href="#contact" class="btn-secondary" style="display:block;text-align:center">Kontakt aufnehmen</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-bottom:120px">
+  <div class="cta-section" id="contact">
+    <h2>Bereit f&uuml;r intelligente DevOps?</h2>
+    <p>Kostenlose 30-Minuten-Analyse Ihrer Infrastruktur. Wir zeigen Ihnen konkret, wo KI Stunden sparen kann.</p>
+    <form class="contact-form" id="contactForm">
+      <input type="text" name="name" placeholder="Ihr Name" required>
+      <input type="email" name="email" placeholder="Ihre E-Mail-Adresse" required>
+      <input type="text" name="company" placeholder="Unternehmen">
+      <select name="team_size">
+        <option value="" disabled selected>Teamgr&ouml;&szlig;e w&auml;hlen</option>
+        <option>1-10 Mitarbeiter</option>
+        <option>11-50 Mitarbeiter</option>
+        <option>51-200 Mitarbeiter</option>
+        <option>200+ Mitarbeiter</option>
+      </select>
+      <button type="submit" id="submitBtn">Kostenlose Analyse anfragen &rarr;</button>
+      <div id="formMsg" style="text-align:center;font-size:14px;display:none;"></div>
+    </form>
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const msg = document.getElementById('formMsg');
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet...';
+      msg.style.display = 'none';
+      try {
+        const resp = await fetch('contact.php', { method: 'POST', body: new FormData(this) });
+        const contentType = resp.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+          throw new Error('Server nicht erreichbar. Bitte stelle sicher, dass die Seite auf einem PHP-Server l\u00e4uft.');
+        }
+        const data = await resp.json();
+        if (data.success) {
+          btn.textContent = '\u2713 Anfrage gesendet!';
+          btn.style.background = '#10B981';
+          btn.style.color = 'white';
+          msg.style.display = 'block';
+          msg.style.color = '#10B981';
+          msg.textContent = 'Vielen Dank! Wir melden uns innerhalb von 24 Stunden.';
+          this.reset();
+        } else {
+          throw new Error(data.error || 'Fehler beim Senden');
+        }
+      } catch (err) {
+        btn.textContent = 'Kostenlose Analyse anfragen \u2192';
+        btn.disabled = false;
+        msg.style.display = 'block';
+        msg.style.color = '#EF4444';
+        msg.textContent = err.message || 'Verbindungsfehler. Bitte versuchen Sie es erneut.';
+      }
+    });
+    </script>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div>&copy; 2026 DerSalvador AI &ndash; KI-gest&uuml;tzte DevOps-Automatisierung</div>
+  <div style="display:flex;gap:24px">
+    <a href="#" style="color:var(--text-muted);text-decoration:none">Impressum</a>
+    <a href="#" style="color:var(--text-muted);text-decoration:none">Datenschutz</a>
+    <a href="#" style="color:var(--text-muted);text-decoration:none">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>
