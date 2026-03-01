@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DerSalvador AI | KI-gestützte DevOps-Automatisierung</title>
+<title>DerSalvador AI | AI-Powered DevOps Automation</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
@@ -46,9 +46,58 @@
   }
   .logo { font-weight: 800; font-size: 20px; color: var(--primary); }
   .logo span { color: var(--accent); }
-  .nav-links { display: flex; gap: 32px; align-items: center; }
-  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .nav-links { display: flex; gap: 16px; align-items: center; }
+  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 12px; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover { color: var(--accent); }
+
+  /* Language Dropdown */
+  .nav-left { display: flex; align-items: center; gap: 12px; }
+  .lang-dropdown {
+    position: relative; display: inline-block;
+  }
+  .lang-dropdown-btn {
+    display: flex; align-items: center; gap: 4px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 12px;
+    font-size: 13px; font-weight: 600; color: var(--text);
+    cursor: pointer; font-family: inherit; transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .lang-dropdown-btn:hover { border-color: var(--accent); }
+  .lang-dropdown-btn::after {
+    content: '\25BE'; font-size: 10px; color: var(--text-muted); margin-left: 2px;
+  }
+  .lang-dropdown-menu {
+    display: none; position: absolute; top: calc(100% + 4px); left: 0;
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 4px; min-width: 140px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1); z-index: 200;
+  }
+  .lang-dropdown.open .lang-dropdown-menu { display: block; }
+  .lang-option {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; border: none; background: none; width: 100%;
+    font-size: 13px; font-weight: 500; color: var(--text);
+    cursor: pointer; border-radius: 8px; font-family: inherit;
+    transition: background 0.15s;
+  }
+  .lang-option:hover { background: var(--accent-glow); }
+  .lang-option.active { background: var(--accent); color: white; font-weight: 600; }
+
+  /* RTL Support */
+  html[dir="rtl"] body { direction: rtl; text-align: right; }
+  html[dir="rtl"] .nav-inner { flex-direction: row-reverse; }
+  html[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+  html[dir="rtl"] .lang-dropdown-menu { left: auto; right: 0; }
+  html[dir="rtl"] .hero { text-align: center; }
+  html[dir="rtl"] .stats-grid, html[dir="rtl"] .services-grid, html[dir="rtl"] .tech-grid { direction: rtl; }
+  html[dir="rtl"] .pricing-grid { direction: rtl; }
+  html[dir="rtl"] .itb-steps { direction: rtl; }
+  html[dir="rtl"] .process-steps { direction: rtl; }
+  html[dir="rtl"] .footer-inner { flex-direction: row-reverse; }
+  html[dir="rtl"] .section-header { text-align: center; }
+  html[dir="rtl"] .pricing-card ul { padding-left: 0; padding-right: 0; text-align: right; }
+  html[dir="rtl"] .pricing-card ul li { direction: rtl; }
 
   /* Hero */
   .hero {
@@ -244,69 +293,6 @@
     color: rgba(255,255,255,0.7);
   }
   .ibm-badge strong { color: white; }
-
-  /* ITBench Quality Stats Grid */
-  .itbench-quality {
-    margin-top: 48px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    padding: 36px;
-    position: relative; z-index: 1;
-  }
-  .itbench-quality-title {
-    font-size: 14px; font-weight: 700; color: var(--accent-light);
-    text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 24px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .itbench-quality-title a {
-    color: var(--accent-light); text-decoration: none;
-    font-size: 12px; font-weight: 500; text-transform: none;
-    letter-spacing: normal; opacity: 0.7;
-    transition: opacity 0.2s;
-  }
-  .itbench-quality-title a:hover { opacity: 1; text-decoration: underline; }
-  .quality-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
-  }
-  .quality-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px; padding: 16px; text-align: center;
-    transition: border-color 0.2s;
-  }
-  .quality-card:hover { border-color: rgba(16,185,129,0.4); }
-  .quality-card .q-num {
-    font-size: 22px; font-weight: 800; color: var(--accent-light);
-    display: block;
-  }
-  .quality-card .q-lbl {
-    font-size: 10px; opacity: 0.55; text-transform: uppercase;
-    letter-spacing: 0.05em; margin-top: 2px;
-  }
-  .repo-pills {
-    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
-  }
-  .repo-pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 6px 14px; border-radius: 100px;
-    font-size: 11px; font-weight: 600;
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-  .repo-pill:hover {
-    border-color: var(--accent-light);
-    color: var(--accent-light);
-    background: rgba(16,185,129,0.1);
-  }
-  .repo-pill .pill-star { color: #F59E0B; }
-  @media (max-width: 768px) {
-    .quality-grid { grid-template-columns: repeat(2, 1fr); }
-  }
   @media (max-width: 768px) {
     .itbench-grid { grid-template-columns: 1fr; gap: 40px; }
     .itbench-stats { grid-template-columns: repeat(3, 1fr); }
@@ -356,11 +342,11 @@
     box-shadow: 0 8px 40px rgba(16,185,129,0.15);
   }
   .pricing-card.featured::before {
-    content: 'Beliebtestes Paket';
+    content: attr(data-badge);
     position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
     background: var(--gradient-1); color: white;
     padding: 4px 16px; border-radius: 100px;
-    font-size: 12px; font-weight: 600;
+    font-size: 12px; font-weight: 600; white-space: nowrap;
   }
   .pricing-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
   .pricing-card .price {
@@ -374,7 +360,7 @@
     padding: 8px 0; font-size: 14px; color: var(--text-muted);
     display: flex; align-items: center; gap: 8px;
   }
-  .pricing-card li::before { content: '✓'; color: var(--success); font-weight: 700; }
+  .pricing-card li::before { content: '\2713'; color: var(--success); font-weight: 700; }
 
   /* CTA Section */
   .cta-section {
@@ -419,13 +405,125 @@
     font-size: 13px; color: var(--text-muted);
   }
 
-  /* Responsive */
+  /* Trusted By / Clients */
+  .trusted-section {
+    max-width: 1200px; margin: 0 auto; padding: 60px 32px 0;
+    text-align: center;
+  }
+  .trusted-label {
+    font-size: 12px; font-weight: 700; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 32px;
+  }
+  .trusted-logos {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 40px; align-items: center; opacity: 0.55;
+  }
+  .trusted-logos span {
+    font-size: 18px; font-weight: 800; color: var(--text);
+    letter-spacing: -0.02em; white-space: nowrap;
+  }
+
+  /* Industry Branches */
+  .branches-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .branch-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px 24px;
+    display: flex; align-items: flex-start; gap: 16px;
+    transition: all 0.3s;
+  }
+  .branch-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 20px rgba(16,185,129,0.08);
+    transform: translateY(-2px);
+  }
+  .branch-icon {
+    width: 44px; height: 44px; min-width: 44px;
+    border-radius: 10px; background: var(--accent-glow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .branch-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .branch-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* Credentials Bar */
+  .credentials-bar {
+    max-width: 1200px; margin: 0 auto; padding: 60px 32px 0;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;
+  }
+  .credential-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 20px;
+    font-size: 13px; font-weight: 600; color: var(--text);
+  }
+  .credential-badge .cred-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--accent-glow); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  /* Hamburger Menu */
+  .hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 8px;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  /* Responsive - iPad */
+  @media (max-width: 1024px) {
+    .nav-links { gap: 10px; }
+    .nav-links a { font-size: 11px; }
+    .services-grid, .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+    .branches-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero h1 { font-size: 40px; }
+    .section { padding: 60px 0; }
+  }
+
+  /* Responsive - Mobile */
   @media (max-width: 768px) {
+    .nav-links {
+      display: none; flex-direction: column; position: absolute;
+      top: 100%; left: 0; right: 0; background: white;
+      padding: 16px 32px; border-bottom: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 8px 0; font-size: 14px; }
+    .hamburger { display: flex; }
     .services-grid, .pricing-grid { grid-template-columns: 1fr; }
     .process-grid { grid-template-columns: repeat(2, 1fr); }
     .tech-grid { grid-template-columns: repeat(3, 1fr); }
     .stats-bar { grid-template-columns: repeat(2, 1fr); }
-    .nav-links { display: none; }
+    .branches-grid { grid-template-columns: 1fr; }
+    .trusted-logos { gap: 24px; flex-wrap: wrap; }
+    .credentials-bar { gap: 12px; flex-wrap: wrap; }
+    .hero h1 { font-size: 28px; }
+    .hero p { font-size: 16px; }
+    .section { padding: 40px 0; }
+    .section-header h2 { font-size: 24px; }
+    .lang-dropdown-btn { padding: 5px 8px; font-size: 12px; }
+  }
+
+  /* Responsive - Small phones */
+  @media (max-width: 480px) {
+    .tech-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-grid { grid-template-columns: 1fr; }
+    .stats-bar { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 24px; }
+    .nav-inner { padding: 0 16px; }
+    .section-inner { padding: 0 16px; }
+    .itbench-stats { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -434,76 +532,165 @@
 <!-- Navigation -->
 <nav>
   <div class="nav-inner">
-    <div class="logo">Der<span>Salvador</span> AI</div>
-    <div class="nav-links">
-      <a href="#services">Leistungen</a>
-      <a href="#itbench">ITBench</a>
-      <a href="#process">Ablauf</a>
-      <a href="#tech">Technologie</a>
-      <a href="#pricing">Pakete</a>
-      <a href="#contact" class="btn-primary" style="padding:10px 24px; font-size:14px;">Erstgespräch buchen</a>
+    <div class="nav-left">
+      <div class="lang-dropdown" id="langDropdown">
+        <button class="lang-dropdown-btn" id="langDropdownBtn" onclick="toggleLangDropdown()">&#x1F1EC;&#x1F1E7; EN</button>
+        <div class="lang-dropdown-menu">
+          <button class="lang-option active" onclick="setLang('en')">&#x1F1EC;&#x1F1E7; English</button>
+          <button class="lang-option" onclick="setLang('de')">&#x1F1E9;&#x1F1EA; Deutsch</button>
+          <button class="lang-option" onclick="setLang('pt')">&#x1F1E7;&#x1F1F7; Português</button>
+          <button class="lang-option" onclick="setLang('ar')">&#x1F1F2;&#x1F1E6; العربية</button>
+          <button class="lang-option" onclick="setLang('fr')">&#x1F1EB;&#x1F1F7; Français</button>
+        </div>
+      </div>
+      <a href="#" class="logo" style="text-decoration:none">Der<span>Salvador</span> AI</a>
     </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#services" data-i18n="nav_services">Services</a>
+      <a href="#branches" data-i18n="nav_branches">Industries</a>
+      <a href="#itbench">ITBench</a>
+      <a href="#process" data-i18n="nav_process">Process</a>
+      <a href="#tech" data-i18n="nav_tech">Technology</a>
+      <a href="#pricing" data-i18n="nav_pricing">Packages</a>
+      <a href="#contact" class="btn-primary" style="padding:10px 24px; font-size:14px;" data-i18n="nav_cta">Book a Call</a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
 <!-- Hero -->
 <div class="hero">
-  <div class="hero-badge">AI-DevOps-Automatisierung f&uuml;r den Mittelstand</div>
-  <h1>Ihre DevOps-Pipeline.<br><em>Intelligent automatisiert.</em></h1>
-  <p>Wir implementieren KI-gest&uuml;tzte DevOps-L&ouml;sungen &ndash; benchmarked mit IBM ITBench &ndash; die Deployment-Zeiten um 70% reduzieren, Incidents automatisch beheben und Ihrem Team Stunden manueller Arbeit ersparen.</p>
+  <div class="hero-badge" data-i18n="hero_badge">AI-DevOps Automation for Enterprises</div>
+  <h1 data-i18n-html="hero_title">Your DevOps Pipelines.<br><em>Intelligently Automated.</em></h1>
+  <p data-i18n="hero_desc">We implement AI-powered DevOps solutions &ndash; benchmarked with IBM ITBench &ndash; that reduce deployment times by 70%, automatically resolve incidents, and save your team hours of manual work.</p>
   <div class="hero-cta">
-    <a href="#contact" class="btn-primary">Kostenlose Analyse anfragen</a>
-    <a href="#services" class="btn-secondary">Leistungen entdecken</a>
+    <a href="#contact" class="btn-primary" data-i18n="hero_cta1">Request Free Analysis</a>
+    <a href="#services" class="btn-secondary" data-i18n="hero_cta2">Discover Services</a>
   </div>
   <div class="stats-bar">
-    <div class="stat"><div class="stat-number">15+</div><div class="stat-label">Jahre DevOps-Erfahrung</div></div>
-    <div class="stat"><div class="stat-number">70%</div><div class="stat-label">Schnellere Deployments</div></div>
-    <div class="stat"><div class="stat-number">40+</div><div class="stat-label">Automatisierte Pipelines</div></div>
-    <div class="stat"><div class="stat-number">€3.3B</div><div class="stat-label">AI-Agent Markt DE 2030</div></div>
+    <div class="stat"><div class="stat-number">25+</div><div class="stat-label" data-i18n="stat1">Years DevOps Experience</div></div>
+    <div class="stat"><div class="stat-number">70%</div><div class="stat-label" data-i18n="stat2">Faster Deployments</div></div>
+    <div class="stat"><div class="stat-number">100+</div><div class="stat-label" data-i18n="stat3">Automated Pipelines</div></div>
+    <div class="stat"><div class="stat-number">&euro;3.3B</div><div class="stat-label" data-i18n="stat4">AI-Agent Market DE 2030</div></div>
   </div>
+</div>
+
+<!-- Trusted By -->
+<div class="trusted-section">
+  <div class="trusted-label" data-i18n="trusted_label">Trusted across industries</div>
+  <div class="trusted-logos">
+    <span>&#x1F3E6; Banking</span>
+    <span>&#x1F4F1; Telecom</span>
+    <span>&#x1F697; Automotive</span>
+    <span>&#x2601;&#xFE0F; Cloud &amp; Tech</span>
+    <span>&#x1F3DB;&#xFE0F; Public Sector</span>
+    <span>&#x1F6D2; E-Commerce</span>
+  </div>
+</div>
+
+<!-- Credentials -->
+<div class="credentials-bar">
+  <div class="credential-badge"><div class="cred-icon">&#x1F3C6;</div><span data-i18n="cred_exp">25+ Years DevOps &amp; Cloud</span></div>
+  <div class="credential-badge"><div class="cred-icon">&#x2601;&#xFE0F;</div><span data-i18n="cred_aws">AWS Solutions Architect</span></div>
+  <div class="credential-badge"><div class="cred-icon">&#x1F3A9;</div><span data-i18n="cred_rh">Red Hat Certified</span></div>
+  <div class="credential-badge"><div class="cred-icon">&#x2638;&#xFE0F;</div><span data-i18n="cred_k8s">Kubernetes Certified</span></div>
+  <div class="credential-badge"><div class="cred-icon">&#x1F310;</div><span data-i18n="cred_multi">Multilingual: DE EN PT AR FR</span></div>
 </div>
 
 <!-- Services -->
 <section id="services">
-  <div class="section-tag">Leistungen</div>
-  <div class="section-title">KI trifft Infrastruktur</div>
-  <div class="section-desc">Wir verbinden tiefes DevOps-Know-how mit modernster KI &ndash; f&uuml;r Automatisierung, die wirklich funktioniert.</div>
+  <div class="section-tag" data-i18n="services_tag">Services</div>
+  <div class="section-title" data-i18n="services_title">AI Meets Infrastructure</div>
+  <div class="section-desc" data-i18n="services_desc">We combine deep DevOps expertise with cutting-edge AI &ndash; for automation that truly works.</div>
   <div class="services-grid">
     <div class="service-card">
-      <div class="service-icon">🤖</div>
-      <h3>AI-Incident Response</h3>
-      <p>Automatische Erkennung, Analyse und Behebung von Infrastructure-Incidents durch KI-Agenten. Powered by IBM ITBench SRE &ndash; reduziert MTTR um bis zu 80%.</p>
+      <div class="service-icon">&#x1F916;</div>
+      <h3 data-i18n="svc1_title">AI-Incident Response</h3>
+      <p data-i18n="svc1_desc">Automatic detection, analysis, and resolution of infrastructure incidents through AI agents. Powered by IBM ITBench SRE &ndash; reduces MTTR by up to 80%.</p>
       <span class="service-tag">ITBench + CrewAI + K8s</span>
     </div>
     <div class="service-card">
-      <div class="service-icon">🔄</div>
-      <h3>Intelligente CI/CD</h3>
-      <p>KI-optimierte Pipelines, die automatisch Tests priorisieren, Bottlenecks erkennen und Deployments intelligent schedulen.</p>
+      <div class="service-icon">&#x1F504;</div>
+      <h3 data-i18n="svc2_title">Intelligent CI/CD</h3>
+      <p data-i18n="svc2_desc">AI-optimized pipelines that automatically prioritize tests, detect bottlenecks, and intelligently schedule deployments.</p>
       <span class="service-tag">GitHub Actions + AI Agents</span>
     </div>
     <div class="service-card">
-      <div class="service-icon">🛡️</div>
-      <h3>AI Security Scanning</h3>
-      <p>Kontinuierliche Analyse von Terraform, Helm Charts und K8s-Manifesten auf Schwachstellen &ndash; bevor sie in Produktion gehen.</p>
+      <div class="service-icon">&#x1F6E1;&#xFE0F;</div>
+      <h3 data-i18n="svc3_title">AI Security Scanning</h3>
+      <p data-i18n="svc3_desc">Continuous analysis of Terraform, Helm Charts, and K8s manifests for vulnerabilities &ndash; before they reach production.</p>
       <span class="service-tag">IaC + SAST + AI Review</span>
     </div>
     <div class="service-card">
-      <div class="service-icon">📊</div>
-      <h3>Predictive Monitoring</h3>
-      <p>KI-basierte Vorhersage von Kapazit&auml;tsengp&auml;ssen und Performance-Problemen, bevor Ihre Nutzer sie bemerken.</p>
+      <div class="service-icon">&#x1F4CA;</div>
+      <h3 data-i18n="svc4_title">Predictive Monitoring</h3>
+      <p data-i18n="svc4_desc">AI-based prediction of capacity bottlenecks and performance issues before your users notice them.</p>
       <span class="service-tag">Prometheus + Grafana + ML</span>
     </div>
     <div class="service-card">
-      <div class="service-icon">⚡</div>
-      <h3>Workflow-Automatisierung</h3>
-      <p>n8n-basierte Automatisierung von repetitiven DevOps-Aufgaben: Ticket-Erstellung, Dokumentation, Change Management.</p>
+      <div class="service-icon">&#x26A1;</div>
+      <h3 data-i18n="svc5_title">Workflow Automation</h3>
+      <p data-i18n="svc5_desc">n8n-based automation of repetitive DevOps tasks: ticket creation, documentation, change management.</p>
       <span class="service-tag">n8n + Claude + Jira</span>
     </div>
     <div class="service-card">
-      <div class="service-icon">☁️</div>
-      <h3>Cloud Cost Intelligence</h3>
-      <p>KI-gest&uuml;tzte Analyse und Optimierung Ihrer Cloud-Kosten. Automatisches Right-Sizing und Spot-Instance-Management.</p>
+      <div class="service-icon">&#x2601;&#xFE0F;</div>
+      <h3 data-i18n="svc6_title">Cloud Cost Intelligence</h3>
+      <p data-i18n="svc6_desc">AI-powered analysis and optimization of your cloud costs. Automatic right-sizing and spot instance management.</p>
       <span class="service-tag">AWS + Azure + FinOps</span>
+    </div>
+  </div>
+</section>
+
+<!-- Industry Branches -->
+<section id="branches">
+  <div class="section-tag" data-i18n="branch_tag">Industries</div>
+  <div class="section-title" data-i18n="branch_title">Proven Across Industries</div>
+  <div class="section-desc" data-i18n="branch_desc">25+ years of hands-on experience in regulated, high-availability environments.</div>
+  <div class="branches-grid">
+    <div class="branch-card">
+      <div class="branch-icon">&#x1F3E6;</div>
+      <div>
+        <h4 data-i18n="br1_title">Banking &amp; Finance</h4>
+        <p data-i18n="br1_desc">CI/CD pipelines for trading platforms, core banking systems, and regulatory compliance in highly regulated environments.</p>
+      </div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">&#x1F4F1;</div>
+      <div>
+        <h4 data-i18n="br2_title">Telecommunications</h4>
+        <p data-i18n="br2_desc">Large-scale infrastructure automation, network monitoring, and 5G platform DevOps for major carriers.</p>
+      </div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">&#x1F697;</div>
+      <div>
+        <h4 data-i18n="br3_title">Automotive</h4>
+        <p data-i18n="br3_desc">Connected vehicle platforms, embedded CI/CD, and cloud-native automotive applications for premium OEMs.</p>
+      </div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">&#x2601;&#xFE0F;</div>
+      <div>
+        <h4 data-i18n="br4_title">Technology &amp; Cloud</h4>
+        <p data-i18n="br4_desc">Multi-cloud architectures (AWS, Azure, GCP, IBM Cloud), Kubernetes at scale, and platform engineering.</p>
+      </div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">&#x1F3DB;&#xFE0F;</div>
+      <div>
+        <h4 data-i18n="br5_title">Public Sector &amp; NGO</h4>
+        <p data-i18n="br5_desc">Secure infrastructure for government agencies and NGOs &ndash; compliance-first DevOps and sovereign cloud solutions.</p>
+      </div>
+    </div>
+    <div class="branch-card">
+      <div class="branch-icon">&#x1F6D2;</div>
+      <div>
+        <h4 data-i18n="br6_title">Retail &amp; E-Commerce</h4>
+        <p data-i18n="br6_desc">High-traffic platforms &ndash; auto-scaling, performance optimization, and zero-downtime deployments for peak seasons.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -513,216 +700,163 @@
   <div class="itbench-section">
     <div class="itbench-grid">
       <div class="itbench-left">
-        <div class="section-tag">Unser Kern-Framework</div>
-        <h2>AI-Readiness Audit<br>powered by IBM ITBench</h2>
-        <p>Wir nutzen IBMs Open-Source-Framework ITBench, um Ihre Infrastruktur mit 94 realen SRE-Szenarien zu testen. So erfahren Sie exakt, welche Incidents AI heute schon automatisch l&ouml;sen kann &ndash; und wo menschliche Expertise unverzichtbar bleibt.</p>
-        <p>Aktuelle Benchmarks zeigen: State-of-the-Art AI-Agenten l&ouml;sen nur 13,8% der SRE-Szenarien. Mit unseren architektonischen Optimierungen (Multi-Agent-Systeme, State Machines, Summarizer Agents) steigern wir die L&ouml;sungsrate um bis zu 53%.</p>
+        <div class="section-tag" data-i18n="itb_tag">Our Core Framework</div>
+        <h2 data-i18n-html="itb_title">AI-Readiness Audit<br>powered by IBM ITBench</h2>
+        <p data-i18n="itb_desc1">We use IBM's open-source framework ITBench to test your infrastructure with 94 real-world SRE scenarios. This tells you exactly which incidents AI can already resolve automatically &ndash; and where human expertise remains essential.</p>
+        <p data-i18n="itb_desc2">Current benchmarks show: state-of-the-art AI agents resolve only 13.8% of SRE scenarios. With our architectural optimizations (multi-agent systems, state machines, summarizer agents) we increase the resolution rate by up to 53%.</p>
         <div class="itbench-stats">
           <div class="itbench-stat">
             <span class="num">94</span>
-            <span class="lbl">Reale Szenarien</span>
+            <span class="lbl" data-i18n="itb_stat1">Real-World Scenarios</span>
           </div>
           <div class="itbench-stat">
             <span class="num">+53%</span>
-            <span class="lbl">Performance-Steigerung</span>
+            <span class="lbl" data-i18n="itb_stat2">Performance Increase</span>
           </div>
           <div class="itbench-stat">
             <span class="num">3</span>
-            <span class="lbl">Audit-Bereiche</span>
+            <span class="lbl" data-i18n="itb_stat3">Audit Areas</span>
           </div>
         </div>
-        <div class="ibm-badge">
-          Basiert auf <strong>IBM Research &amp; UC Berkeley</strong> &middot; ICML 2025 &middot; AAAI 2026 &middot; Apache 2.0
-        </div>
+        <div class="ibm-badge" data-i18n-html="itb_badge">Based on <strong>IBM Research &amp; UC Berkeley</strong> &middot; ICML 2025 &middot; AAAI 2026 &middot; Apache 2.0</div>
       </div>
       <div class="itbench-right">
-        <div style="font-size:13px;font-weight:700;color:var(--accent-light);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px">So funktioniert das ITBench Audit</div>
+        <div style="font-size:13px;font-weight:700;color:var(--accent-light);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px" data-i18n="itb_how">How the ITBench Audit Works</div>
         <div class="itbench-flow-step">
           <div class="flow-num">1</div>
           <div class="flow-content">
-            <h4>Szenario-Deployment</h4>
-            <p>Wir deployen reale Incident-Szenarien in einer isolierten Kopie Ihrer Kubernetes/OpenShift-Umgebung &ndash; kein Risiko f&uuml;r Produktion.</p>
+            <h4 data-i18n="itb_step1_title">Scenario Deployment</h4>
+            <p data-i18n="itb_step1_desc">We deploy real incident scenarios in an isolated copy of your Kubernetes/OpenShift environment &ndash; zero risk to production.</p>
           </div>
         </div>
         <div class="itbench-flow-step">
           <div class="flow-num">2</div>
           <div class="flow-content">
-            <h4>AI-Agent-Evaluation</h4>
-            <p>Unsere SRE-Agenten analysieren Logs, Metriken und Traces (Prometheus, Jaeger, ClickHouse), diagnostizieren Root Causes und testen Remediation-Strategien.</p>
+            <h4 data-i18n="itb_step2_title">AI Agent Evaluation</h4>
+            <p data-i18n="itb_step2_desc">Our SRE agents analyze logs, metrics, and traces (Prometheus, Jaeger, ClickHouse), diagnose root causes, and test remediation strategies.</p>
           </div>
         </div>
         <div class="itbench-flow-step">
           <div class="flow-num">3</div>
           <div class="flow-content">
-            <h4>MAST Failure Analysis</h4>
-            <p>Mit der Multi-Agent System Failure Taxonomy (MAST) identifizieren wir exakt, wo Agenten scheitern &ndash; und welche architektonischen &Auml;nderungen die gr&ouml;&szlig;te Wirkung haben.</p>
+            <h4 data-i18n="itb_step3_title">MAST Failure Analysis</h4>
+            <p data-i18n="itb_step3_desc">Using the Multi-Agent System Failure Taxonomy (MAST), we identify exactly where agents fail &ndash; and which architectural changes have the greatest impact.</p>
           </div>
         </div>
         <div class="itbench-flow-step">
           <div class="flow-num">4</div>
           <div class="flow-content">
-            <h4>Readiness Report &amp; Roadmap</h4>
-            <p>Sie erhalten einen detaillierten Report mit Ihrem AI-Readiness-Score, priorisierten Automatisierungs-Empfehlungen und konkreter ROI-Berechnung.</p>
+            <h4 data-i18n="itb_step4_title">Readiness Report &amp; Roadmap</h4>
+            <p data-i18n="itb_step4_desc">You receive a detailed report with your AI readiness score, prioritized automation recommendations, and concrete ROI calculations.</p>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- ITBench Open Source Quality & Activity Stats -->
-    <div class="itbench-quality">
-      <div class="itbench-quality-title">
-        Open-Source-Qualit&auml;t &amp; Aktivit&auml;t
-        <a href="https://github.com/itbench-hub" target="_blank" rel="noopener">github.com/itbench-hub &rarr;</a>
-      </div>
-      <div class="quality-grid">
-        <div class="quality-card">
-          <span class="q-num">347</span>
-          <span class="q-lbl">GitHub Stars</span>
-        </div>
-        <div class="quality-card">
-          <span class="q-num">378</span>
-          <span class="q-lbl">Commits</span>
-        </div>
-        <div class="quality-card">
-          <span class="q-num">44</span>
-          <span class="q-lbl">Contributors</span>
-        </div>
-        <div class="quality-card">
-          <span class="q-num">61</span>
-          <span class="q-lbl">Forks</span>
-        </div>
-        <div class="quality-card">
-          <span class="q-num">6</span>
-          <span class="q-lbl">Repositories</span>
-        </div>
-        <div class="quality-card">
-          <span class="q-num">33k+</span>
-          <span class="q-lbl">Lines of Code</span>
-        </div>
-        <div class="quality-card">
-          <span class="q-num">5</span>
-          <span class="q-lbl">CI/CD Workflows</span>
-        </div>
-        <div class="quality-card">
-          <span class="q-num">100%</span>
-          <span class="q-lbl">Apache 2.0</span>
-        </div>
-      </div>
-      <div class="repo-pills">
-        <a href="https://github.com/itbench-hub/ITBench" target="_blank" rel="noopener" class="repo-pill"><span class="pill-star">&#9733;</span> ITBench <span style="opacity:0.5">308</span></a>
-        <a href="https://github.com/itbench-hub/ITBench-SRE-Agent" target="_blank" rel="noopener" class="repo-pill">SRE-Agent</a>
-        <a href="https://github.com/itbench-hub/ITBench-CISO-CAA-Agent" target="_blank" rel="noopener" class="repo-pill"><span class="pill-star">&#9733;</span> CISO-Agent <span style="opacity:0.5">21</span></a>
-        <a href="https://github.com/itbench-hub/ITBench-Scenarios" target="_blank" rel="noopener" class="repo-pill"><span class="pill-star">&#9733;</span> Scenarios <span style="opacity:0.5">15</span></a>
-        <a href="https://github.com/itbench-hub/ITBench-Utilities" target="_blank" rel="noopener" class="repo-pill">Utilities</a>
-        <a href="https://github.com/itbench-hub/ITBench-Tutorials" target="_blank" rel="noopener" class="repo-pill">Tutorials</a>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <!-- Process -->
 <section id="process">
-  <div class="section-tag">Unser Ablauf</div>
-  <div class="section-title">In 4 Wochen zur AI-Pipeline</div>
-  <div class="section-desc">Kein monatelanges Consulting. Wir liefern funktionierende Automatisierung.</div>
+  <div class="section-tag" data-i18n="proc_tag">Our Process</div>
+  <div class="section-title" data-i18n="proc_title">AI Pipeline in 4 Weeks</div>
+  <div class="section-desc" data-i18n="proc_desc">No months of consulting. We deliver working automation.</div>
   <div class="process-grid">
     <div class="process-step">
       <div class="step-number">1</div>
-      <h3>Infrastruktur-Audit</h3>
-      <p>Analyse Ihrer bestehenden CI/CD-Pipelines, Monitoring und Incident-Prozesse. Identifikation der gr&ouml;&szlig;ten Automatisierungspotenziale.</p>
+      <h3 data-i18n="proc1_title">Infrastructure Audit</h3>
+      <p data-i18n="proc1_desc">Analysis of your existing CI/CD pipelines, monitoring, and incident processes. Identification of the biggest automation opportunities.</p>
     </div>
     <div class="process-step">
       <div class="step-number">2</div>
-      <h3>AI-Strategie</h3>
-      <p>Konkrete Roadmap mit priorisierten Use Cases, erwarteter Zeitersparnis und ROI-Berechnung f&uuml;r jeden Automatisierungsschritt.</p>
+      <h3 data-i18n="proc2_title">AI Strategy</h3>
+      <p data-i18n="proc2_desc">Concrete roadmap with prioritized use cases, expected time savings, and ROI calculation for each automation step.</p>
     </div>
     <div class="process-step">
       <div class="step-number">3</div>
-      <h3>Implementierung</h3>
-      <p>Done-for-You Umsetzung der AI-Workflows direkt in Ihrer Infrastruktur. Keine Theorie &ndash; funktionierende Automatisierung.</p>
+      <h3 data-i18n="proc3_title">Implementation</h3>
+      <p data-i18n="proc3_desc">Done-for-you implementation of AI workflows directly in your infrastructure. No theory &ndash; working automation.</p>
     </div>
     <div class="process-step">
       <div class="step-number">4</div>
-      <h3>Training & Übergabe</h3>
-      <p>Ihr Team lernt, die AI-Systeme zu bedienen und weiterzuentwickeln. Inklusive Dokumentation und Support-Phase.</p>
+      <h3 data-i18n="proc4_title">Training &amp; Handover</h3>
+      <p data-i18n="proc4_desc">Your team learns to operate and evolve the AI systems. Including documentation and support phase.</p>
     </div>
   </div>
 </section>
 
 <!-- Tech Stack -->
 <section id="tech">
-  <div class="section-tag">Technologie</div>
-  <div class="section-title">Enterprise-grade Tech Stack</div>
-  <div class="section-desc">Wir arbeiten mit den Tools, die Sie bereits nutzen &ndash; und erweitern sie mit KI und IBM ITBench.</div>
+  <div class="section-tag" data-i18n="tech_tag">Technology</div>
+  <div class="section-title" data-i18n="tech_title">Enterprise-grade Tech Stack</div>
+  <div class="section-desc" data-i18n="tech_desc">We work with the tools you already use &ndash; and extend them with AI and IBM ITBench.</div>
   <div class="tech-grid">
-    <div class="tech-item"><span class="icon">☸️</span>Kubernetes</div>
-    <div class="tech-item"><span class="icon">🏗️</span>Terraform</div>
-    <div class="tech-item"><span class="icon">🔄</span>GitHub Actions</div>
-    <div class="tech-item"><span class="icon">📦</span>Helm</div>
-    <div class="tech-item"><span class="icon">🤖</span>Claude AI</div>
-    <div class="tech-item"><span class="icon">⚡</span>n8n</div>
-    <div class="tech-item"><span class="icon">☁️</span>AWS</div>
-    <div class="tech-item"><span class="icon">🔷</span>Azure</div>
-    <div class="tech-item"><span class="icon">📊</span>Grafana</div>
-    <div class="tech-item"><span class="icon">🔥</span>Prometheus</div>
-    <div class="tech-item"><span class="icon">🦊</span>GitLab CI</div>
-    <div class="tech-item"><span class="icon">🐳</span>Docker</div>
-    <div class="tech-item" style="border-color:var(--accent);background:var(--accent-glow)"><span class="icon">🔬</span>IBM ITBench</div>
-    <div class="tech-item"><span class="icon">🧠</span>CrewAI</div>
-    <div class="tech-item"><span class="icon">🔗</span>LiteLLM</div>
-    <div class="tech-item"><span class="icon">🔍</span>Jaeger</div>
-    <div class="tech-item"><span class="icon">📝</span>ClickHouse</div>
-    <div class="tech-item"><span class="icon">🔐</span>Vault</div>
+    <div class="tech-item"><span class="icon">&#x2638;&#xFE0F;</span>Kubernetes</div>
+    <div class="tech-item"><span class="icon">&#x1F3D7;&#xFE0F;</span>Terraform</div>
+    <div class="tech-item"><span class="icon">&#x1F504;</span>GitHub Actions</div>
+    <div class="tech-item"><span class="icon">&#x1F4E6;</span>Helm</div>
+    <div class="tech-item"><span class="icon">&#x1F916;</span>Claude AI</div>
+    <div class="tech-item"><span class="icon">&#x26A1;</span>n8n</div>
+    <div class="tech-item"><span class="icon">&#x2601;&#xFE0F;</span>AWS</div>
+    <div class="tech-item"><span class="icon">&#x1F537;</span>Azure</div>
+    <div class="tech-item"><span class="icon">&#x1F4CA;</span>Grafana</div>
+    <div class="tech-item"><span class="icon">&#x1F525;</span>Prometheus</div>
+    <div class="tech-item"><span class="icon">&#x1F98A;</span>GitLab CI</div>
+    <div class="tech-item"><span class="icon">&#x1F433;</span>Docker</div>
+    <div class="tech-item" style="border-color:var(--accent);background:var(--accent-glow)"><span class="icon">&#x1F52C;</span>IBM ITBench</div>
+    <div class="tech-item"><span class="icon">&#x1F9E0;</span>CrewAI</div>
+    <div class="tech-item"><span class="icon">&#x1F517;</span>LiteLLM</div>
+    <div class="tech-item"><span class="icon">&#x1F50D;</span>Jaeger</div>
+    <div class="tech-item"><span class="icon">&#x1F4DD;</span>ClickHouse</div>
+    <div class="tech-item"><span class="icon">&#x1F510;</span>Vault</div>
   </div>
 </section>
 
 <!-- Pricing -->
 <section id="pricing">
-  <div class="section-tag">Pakete</div>
-  <div class="section-title">Transparent &amp; fair</div>
-  <div class="section-desc">W&auml;hlen Sie das Paket, das zu Ihrem Automatisierungsgrad passt.</div>
+  <div class="section-tag" data-i18n="price_tag">Packages</div>
+  <div class="section-title" data-i18n="price_title">Transparent &amp; Fair</div>
+  <div class="section-desc" data-i18n="price_desc">Choose the package that fits your automation level.</div>
   <div class="pricing-grid">
     <div class="pricing-card">
       <h3>Starter</h3>
-      <p style="font-size:14px;color:var(--text-muted)">F&uuml;r Teams, die AI testen wollen</p>
-      <div class="price">€4.900<span> / einmalig</span></div>
+      <p style="font-size:14px;color:var(--text-muted)" data-i18n="price1_sub">For teams that want to test AI</p>
+      <div class="price">&euro;4.900<span data-i18n="price1_per"> / one-time</span></div>
       <ul>
-        <li>ITBench AI-Readiness Audit</li>
-        <li>AI-Readiness-Score &amp; Report</li>
-        <li>AI-Roadmap mit 3 Use Cases</li>
-        <li>1 automatisierter Workflow</li>
-        <li>Dokumentation &amp; 2h Training</li>
+        <li data-i18n="price1_f1">ITBench AI-Readiness Audit</li>
+        <li data-i18n="price1_f2">AI-Readiness Score &amp; Report</li>
+        <li data-i18n="price1_f3">AI Roadmap with 3 Use Cases</li>
+        <li data-i18n="price1_f4">1 Automated Workflow</li>
+        <li data-i18n="price1_f5">Documentation &amp; 2h Training</li>
       </ul>
-      <a href="#contact" class="btn-secondary" style="display:block;text-align:center">Anfragen</a>
+      <a href="#contact" class="btn-secondary" style="display:block;text-align:center" data-i18n="price_inquire">Inquire</a>
     </div>
-    <div class="pricing-card featured">
+    <div class="pricing-card featured" data-badge="Most Popular">
       <h3>Professional</h3>
-      <p style="font-size:14px;color:var(--text-muted)">Komplette AI-DevOps Transformation</p>
-      <div class="price">€2.400<span> / Monat</span></div>
+      <p style="font-size:14px;color:var(--text-muted)" data-i18n="price2_sub">Complete AI-DevOps Transformation</p>
+      <div class="price">&euro;2.400<span data-i18n="price2_per"> / month</span></div>
       <ul>
-        <li>Alles aus Starter</li>
-        <li>5 automatisierte Workflows</li>
-        <li>ITBench SRE Agent Deployment</li>
-        <li>MAST Failure Analysis</li>
-        <li>Predictive Monitoring</li>
-        <li>Monatliche Optimierung + Support</li>
+        <li data-i18n="price2_f1">Everything from Starter</li>
+        <li data-i18n="price2_f2">5 Automated Workflows</li>
+        <li data-i18n="price2_f3">ITBench SRE Agent Deployment</li>
+        <li data-i18n="price2_f4">MAST Failure Analysis</li>
+        <li data-i18n="price2_f5">Predictive Monitoring</li>
+        <li data-i18n="price2_f6">Monthly Optimization + Support</li>
       </ul>
-      <a href="#contact" class="btn-primary" style="display:block;text-align:center">Erstgespr&auml;ch buchen</a>
+      <a href="#contact" class="btn-primary" style="display:block;text-align:center" data-i18n="price_book">Book a Call</a>
     </div>
     <div class="pricing-card">
       <h3>Enterprise</h3>
-      <p style="font-size:14px;color:var(--text-muted)">F&uuml;r komplexe Infrastrukturen</p>
-      <div class="price">Individuell</div>
+      <p style="font-size:14px;color:var(--text-muted)" data-i18n="price3_sub">For complex infrastructures</p>
+      <div class="price" data-i18n="price3_amount">Custom</div>
       <ul>
-        <li>Alles aus Professional</li>
-        <li>Vollst&auml;ndiges ITBench (SRE + CISO + FinOps)</li>
-        <li>Custom Multi-Agent-Architektur</li>
-        <li>Dedizierter AI Engineer</li>
-        <li>EU AI Act Compliance</li>
+        <li data-i18n="price3_f1">Everything from Professional</li>
+        <li data-i18n="price3_f2">Full ITBench (SRE + CISO + FinOps)</li>
+        <li data-i18n="price3_f3">Custom Multi-Agent Architecture</li>
+        <li data-i18n="price3_f4">Dedicated AI Engineer</li>
+        <li data-i18n="price3_f5">EU AI Act Compliance</li>
         <li>24/7 Support</li>
       </ul>
-      <a href="#contact" class="btn-secondary" style="display:block;text-align:center">Kontakt aufnehmen</a>
+      <a href="#contact" class="btn-secondary" style="display:block;text-align:center" data-i18n="price_contact">Get in Touch</a>
     </div>
   </div>
 </section>
@@ -730,70 +864,425 @@
 <!-- CTA -->
 <section style="padding-bottom:120px">
   <div class="cta-section" id="contact">
-    <h2>Bereit f&uuml;r intelligente DevOps?</h2>
-    <p>Kostenlose 30-Minuten-Analyse Ihrer Infrastruktur. Wir zeigen Ihnen konkret, wo KI Stunden sparen kann.</p>
+    <h2 data-i18n="cta_title">Ready for Intelligent DevOps?</h2>
+    <p data-i18n="cta_desc">Free 30-minute analysis of your infrastructure. We show you exactly where AI can save hours.</p>
     <form class="contact-form" id="contactForm">
-      <input type="text" name="name" placeholder="Ihr Name" required>
-      <input type="email" name="email" placeholder="Ihre E-Mail-Adresse" required>
-      <input type="text" name="company" placeholder="Unternehmen">
+      <input type="text" name="name" data-i18n-ph="form_name" placeholder="Your Name" required>
+      <input type="email" name="email" data-i18n-ph="form_email" placeholder="Your Email Address" required>
+      <input type="text" name="company" data-i18n-ph="form_company" placeholder="Company">
       <select name="team_size">
-        <option value="" disabled selected>Teamgr&ouml;&szlig;e w&auml;hlen</option>
-        <option>1-10 Mitarbeiter</option>
-        <option>11-50 Mitarbeiter</option>
-        <option>51-200 Mitarbeiter</option>
-        <option>200+ Mitarbeiter</option>
+        <option value="" disabled selected data-i18n="form_team">Select team size</option>
+        <option data-i18n="form_t1">1-10 Employees</option>
+        <option data-i18n="form_t2">11-50 Employees</option>
+        <option data-i18n="form_t3">51-200 Employees</option>
+        <option data-i18n="form_t4">200+ Employees</option>
       </select>
-      <button type="submit" id="submitBtn">Kostenlose Analyse anfragen &rarr;</button>
-      <div id="formMsg" style="text-align:center;font-size:14px;display:none;"></div>
+      <button type="submit" id="submitBtn" data-i18n="form_submit">Request Free Analysis &rarr;</button>
+      <div id="formMsg" style="text-align:center;font-size:14px;margin-top:12px;display:none;"></div>
     </form>
     <script>
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      const msg = document.getElementById('formMsg');
-      btn.disabled = true;
-      btn.textContent = 'Wird gesendet...';
-      msg.style.display = 'none';
-      try {
-        const resp = await fetch('contact.php', { method: 'POST', body: new FormData(this) });
-        const contentType = resp.headers.get('content-type') || '';
-        if (!contentType.includes('application/json')) {
-          throw new Error('Server nicht erreichbar. Bitte stelle sicher, dass die Seite auf einem PHP-Server l\u00e4uft.');
+    (function(){
+      var successMsgs = {en:'Thank you! We will get back to you within 24 hours.', de:'Vielen Dank! Wir melden uns innerhalb von 24 Stunden bei Ihnen.', pt:'Obrigado! Retornaremos em at\u00e9 24 horas.', ar:'\u0634\u0643\u0631\u0627\u064b \u0644\u0643! \u0633\u0646\u0639\u0648\u062f \u0625\u0644\u064a\u0643 \u062e\u0644\u0627\u0644 24 \u0633\u0627\u0639\u0629.', fr:'Merci ! Nous vous recontacterons dans les 24 heures.'};
+      var errorMsgs = {en:'Could not send email. Please try again.', de:'E-Mail konnte nicht gesendet werden. Bitte versuchen Sie es erneut.', pt:'N\u00e3o foi poss\u00edvel enviar. Tente novamente.', ar:'\u062a\u0639\u0630\u0631 \u0627\u0644\u0625\u0631\u0633\u0627\u0644. \u062d\u0627\u0648\u0644 \u0645\u0631\u0629 \u0623\u062e\u0631\u0649.', fr:'\u00c9chec de l\u2019envoi. Veuillez r\u00e9essayer.'};
+      var sendingMsgs = {en:'Sending...', de:'Wird gesendet...', pt:'Enviando...', ar:'\u062c\u0627\u0631\u064d \u0627\u0644\u0625\u0631\u0633\u0627\u0644...', fr:'Envoi en cours...'};
+      function getLang() { try { return localStorage.getItem('lang') || 'en'; } catch(e) { return 'en'; } }
+
+      var form = document.getElementById('contactForm');
+      var btn = document.getElementById('submitBtn');
+      var msg = document.getElementById('formMsg');
+      var origBtnText = btn.textContent;
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var lang = getLang();
+        btn.disabled = true;
+        btn.textContent = sendingMsgs[lang] || sendingMsgs.en;
+        msg.style.display = 'none';
+
+        fetch('contact.php', { method: 'POST', body: new FormData(form) })
+          .then(function(resp) {
+            var ct = resp.headers.get('content-type') || '';
+            if (!ct.includes('application/json')) throw new Error('Server unavailable');
+            return resp.json();
+          })
+          .then(function(data) {
+            if (data.success) {
+              btn.textContent = '\u2713 ' + (successMsgs[lang] || successMsgs.en);
+              btn.style.background = '#10B981';
+              btn.style.color = 'white';
+              msg.style.display = 'block';
+              msg.style.color = '#10B981';
+              msg.textContent = successMsgs[lang] || successMsgs.en;
+              form.reset();
+              setTimeout(function() {
+                btn.textContent = origBtnText;
+                btn.style.background = '';
+                btn.style.color = '';
+                btn.disabled = false;
+              }, 5000);
+            } else {
+              throw new Error(data.error || 'Unknown error');
+            }
+          })
+          .catch(function(err) {
+            btn.textContent = origBtnText;
+            btn.disabled = false;
+            msg.style.display = 'block';
+            msg.style.color = '#EF4444';
+            msg.textContent = err.message || (errorMsgs[lang] || errorMsgs.en);
+          });
+      });
+
+      form.addEventListener('focusin', function() {
+        if (msg.style.display !== 'none') {
+          msg.style.display = 'none';
+          msg.textContent = '';
         }
-        const data = await resp.json();
-        if (data.success) {
-          btn.textContent = '\u2713 Anfrage gesendet!';
-          btn.style.background = '#10B981';
-          btn.style.color = 'white';
-          msg.style.display = 'block';
-          msg.style.color = '#10B981';
-          msg.textContent = 'Vielen Dank! Wir melden uns innerhalb von 24 Stunden.';
-          this.reset();
-        } else {
-          throw new Error(data.error || 'Fehler beim Senden');
-        }
-      } catch (err) {
-        btn.textContent = 'Kostenlose Analyse anfragen \u2192';
-        btn.disabled = false;
-        msg.style.display = 'block';
-        msg.style.color = '#EF4444';
-        msg.textContent = err.message || 'Verbindungsfehler. Bitte versuchen Sie es erneut.';
-      }
-    });
+      });
+    })();
     </script>
   </div>
 </section>
 
 <!-- Footer -->
 <footer>
-  <div>&copy; 2026 DerSalvador AI &ndash; KI-gest&uuml;tzte DevOps-Automatisierung</div>
+  <div data-i18n-html="footer_copy">&copy; 2026 DerSalvador AI &ndash; AI-Powered DevOps Automation</div>
   <div style="display:flex;gap:24px">
-    <a href="https://github.com/DerSalvador/dersalvadorAILandingpage" target="_blank" rel="noopener" style="color:var(--text-muted);text-decoration:none;display:flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
-    <a href="#" style="color:var(--text-muted);text-decoration:none">Impressum</a>
-    <a href="#" style="color:var(--text-muted);text-decoration:none">Datenschutz</a>
+    <a href="#" style="color:var(--text-muted);text-decoration:none" data-i18n="footer_imprint">Imprint</a>
+    <a href="#" style="color:var(--text-muted);text-decoration:none" data-i18n="footer_privacy">Privacy</a>
     <a href="#" style="color:var(--text-muted);text-decoration:none">LinkedIn</a>
   </div>
 </footer>
+
+<!-- i18n Translation Engine -->
+<script>
+var T = {
+  en: {
+    nav_services: "Services", nav_branches: "Industries", nav_process: "Process", nav_tech: "Technology", nav_pricing: "Packages", nav_cta: "Book a Call",
+    hero_badge: "AI-DevOps Automation for Enterprises",
+    hero_title: 'Your DevOps Pipelines.<br><em>Intelligently Automated.</em>',
+    hero_desc: "We implement AI-powered DevOps solutions \u2013 benchmarked with IBM ITBench \u2013 that reduce deployment times by 70%, automatically resolve incidents, and save your team hours of manual work.",
+    hero_cta1: "Request Free Analysis", hero_cta2: "Discover Services",
+    stat1: "Years DevOps Experience", stat2: "Faster Deployments", stat3: "Automated Pipelines", stat4: "AI-Agent Market DE 2030",
+    services_tag: "Services", services_title: "AI Meets Infrastructure", services_desc: "We combine deep DevOps expertise with cutting-edge AI \u2013 for automation that truly works.",
+    svc1_title: "AI-Incident Response", svc1_desc: "Automatic detection, analysis, and resolution of infrastructure incidents through AI agents. Powered by IBM ITBench SRE \u2013 reduces MTTR by up to 80%.",
+    svc2_title: "Intelligent CI/CD", svc2_desc: "AI-optimized pipelines that automatically prioritize tests, detect bottlenecks, and intelligently schedule deployments.",
+    svc3_title: "AI Security Scanning", svc3_desc: "Continuous analysis of Terraform, Helm Charts, and K8s manifests for vulnerabilities \u2013 before they reach production.",
+    svc4_title: "Predictive Monitoring", svc4_desc: "AI-based prediction of capacity bottlenecks and performance issues before your users notice them.",
+    svc5_title: "Workflow Automation", svc5_desc: "n8n-based automation of repetitive DevOps tasks: ticket creation, documentation, change management.",
+    svc6_title: "Cloud Cost Intelligence", svc6_desc: "AI-powered analysis and optimization of your cloud costs. Automatic right-sizing and spot instance management.",
+    itb_tag: "Our Core Framework", itb_title: 'AI-Readiness Audit<br>powered by IBM ITBench',
+    itb_desc1: "We use IBM\u2019s open-source framework ITBench to test your infrastructure with 94 real-world SRE scenarios. This tells you exactly which incidents AI can already resolve automatically \u2013 and where human expertise remains essential.",
+    itb_desc2: "Current benchmarks show: state-of-the-art AI agents resolve only 13.8% of SRE scenarios. With our architectural optimizations (multi-agent systems, state machines, summarizer agents) we increase the resolution rate by up to 53%.",
+    itb_stat1: "Real-World Scenarios", itb_stat2: "Performance Increase", itb_stat3: "Audit Areas",
+    itb_badge: 'Based on <strong>IBM Research &amp; UC Berkeley</strong> \u00b7 ICML 2025 \u00b7 AAAI 2026 \u00b7 Apache 2.0',
+    itb_how: "How the ITBench Audit Works",
+    itb_step1_title: "Scenario Deployment", itb_step1_desc: "We deploy real incident scenarios in an isolated copy of your Kubernetes/OpenShift environment \u2013 zero risk to production.",
+    itb_step2_title: "AI Agent Evaluation", itb_step2_desc: "Our SRE agents analyze logs, metrics, and traces (Prometheus, Jaeger, ClickHouse), diagnose root causes, and test remediation strategies.",
+    itb_step3_title: "MAST Failure Analysis", itb_step3_desc: "Using the Multi-Agent System Failure Taxonomy (MAST), we identify exactly where agents fail \u2013 and which architectural changes have the greatest impact.",
+    itb_step4_title: "Readiness Report & Roadmap", itb_step4_desc: "You receive a detailed report with your AI readiness score, prioritized automation recommendations, and concrete ROI calculations.",
+    proc_tag: "Our Process", proc_title: "AI Pipeline in 4 Weeks", proc_desc: "No months of consulting. We deliver working automation.",
+    proc1_title: "Infrastructure Audit", proc1_desc: "Analysis of your existing CI/CD pipelines, monitoring, and incident processes. Identification of the biggest automation opportunities.",
+    proc2_title: "AI Strategy", proc2_desc: "Concrete roadmap with prioritized use cases, expected time savings, and ROI calculation for each automation step.",
+    proc3_title: "Implementation", proc3_desc: "Done-for-you implementation of AI workflows directly in your infrastructure. No theory \u2013 working automation.",
+    proc4_title: "Training & Handover", proc4_desc: "Your team learns to operate and evolve the AI systems. Including documentation and support phase.",
+    tech_tag: "Technology", tech_title: "Enterprise-grade Tech Stack", tech_desc: "We work with the tools you already use \u2013 and extend them with AI and IBM ITBench.",
+    price_tag: "Packages", price_title: "Transparent & Fair", price_desc: "Choose the package that fits your automation level.",
+    price1_sub: "For teams that want to test AI", price1_per: " / one-time", price1_f1: "ITBench AI-Readiness Audit", price1_f2: "AI-Readiness Score & Report", price1_f3: "AI Roadmap with 3 Use Cases", price1_f4: "1 Automated Workflow", price1_f5: "Documentation & 2h Training", price_inquire: "Inquire",
+    price2_sub: "Complete AI-DevOps Transformation", price2_per: " / month", price2_f1: "Everything from Starter", price2_f2: "5 Automated Workflows", price2_f3: "ITBench SRE Agent Deployment", price2_f4: "MAST Failure Analysis", price2_f5: "Predictive Monitoring", price2_f6: "Monthly Optimization + Support", price_book: "Book a Call",
+    price3_sub: "For complex infrastructures", price3_amount: "Custom", price3_f1: "Everything from Professional", price3_f2: "Full ITBench (SRE + CISO + FinOps)", price3_f3: "Custom Multi-Agent Architecture", price3_f4: "Dedicated AI Engineer", price3_f5: "EU AI Act Compliance", price_contact: "Get in Touch",
+    badge_popular: "Most Popular",
+    cta_title: "Ready for Intelligent DevOps?", cta_desc: "Free 30-minute analysis of your infrastructure. We show you exactly where AI can save hours.",
+    form_name: "Your Name", form_email: "Your Email Address", form_company: "Company", form_team: "Select team size", form_t1: "1-10 Employees", form_t2: "11-50 Employees", form_t3: "51-200 Employees", form_t4: "200+ Employees", form_submit: "Request Free Analysis \u2192", form_success: "Thank you! We will get back to you within 24 hours.",
+    trusted_label: "Trusted across industries",
+    cred_exp: "25+ Years DevOps & Cloud", cred_aws: "AWS Solutions Architect", cred_rh: "Red Hat Certified", cred_k8s: "Kubernetes Certified", cred_multi: "Multilingual: DE EN PT AR FR",
+    branch_tag: "Industries", branch_title: "Proven Across Industries", branch_desc: "25+ years of hands-on experience in regulated, high-availability environments.",
+    br1_title: "Banking & Finance", br1_desc: "CI/CD pipelines for trading platforms, core banking systems, and regulatory compliance in highly regulated environments.",
+    br2_title: "Telecommunications", br2_desc: "Large-scale infrastructure automation, network monitoring, and 5G platform DevOps for major carriers.",
+    br3_title: "Automotive", br3_desc: "Connected vehicle platforms, embedded CI/CD, and cloud-native automotive applications for premium OEMs.",
+    br4_title: "Technology & Cloud", br4_desc: "Multi-cloud architectures (AWS, Azure, GCP, IBM Cloud), Kubernetes at scale, and platform engineering.",
+    br5_title: "Public Sector & NGO", br5_desc: "Secure infrastructure for government agencies and NGOs \u2013 compliance-first DevOps and sovereign cloud solutions.",
+    br6_title: "Retail & E-Commerce", br6_desc: "High-traffic platforms \u2013 auto-scaling, performance optimization, and zero-downtime deployments for peak seasons.",
+    footer_copy: "\u00a9 2026 DerSalvador AI \u2013 AI-Powered DevOps Automation", footer_imprint: "Imprint", footer_privacy: "Privacy"
+  },
+  de: {
+    nav_services: "Leistungen", nav_branches: "Branchen", nav_process: "Ablauf", nav_tech: "Technologie", nav_pricing: "Pakete", nav_cta: "Erstgespr\u00e4ch buchen",
+    hero_badge: "AI-DevOps-Automatisierung f\u00fcr den Mittelstand",
+    hero_title: 'Ihre DevOps-Pipelines.<br><em>Intelligent automatisiert.</em>',
+    hero_desc: "Wir implementieren KI-gest\u00fctzte DevOps-L\u00f6sungen \u2013 benchmarked mit IBM ITBench \u2013 die Deployment-Zeiten um 70% reduzieren, Incidents automatisch beheben und Ihrem Team Stunden manueller Arbeit ersparen.",
+    hero_cta1: "Kostenlose Analyse anfragen", hero_cta2: "Leistungen entdecken",
+    stat1: "Jahre DevOps-Erfahrung", stat2: "Schnellere Deployments", stat3: "Automatisierte Pipelines", stat4: "AI-Agent Markt DE 2030",
+    services_tag: "Leistungen", services_title: "KI trifft Infrastruktur", services_desc: "Wir verbinden tiefes DevOps-Know-how mit modernster KI \u2013 f\u00fcr Automatisierung, die wirklich funktioniert.",
+    svc1_title: "AI-Incident Response", svc1_desc: "Automatische Erkennung, Analyse und Behebung von Infrastructure-Incidents durch KI-Agenten. Powered by IBM ITBench SRE \u2013 reduziert MTTR um bis zu 80%.",
+    svc2_title: "Intelligente CI/CD", svc2_desc: "KI-optimierte Pipelines, die automatisch Tests priorisieren, Bottlenecks erkennen und Deployments intelligent schedulen.",
+    svc3_title: "AI Security Scanning", svc3_desc: "Kontinuierliche Analyse von Terraform, Helm Charts und K8s-Manifesten auf Schwachstellen \u2013 bevor sie in Produktion gehen.",
+    svc4_title: "Predictive Monitoring", svc4_desc: "KI-basierte Vorhersage von Kapazit\u00e4tsengp\u00e4ssen und Performance-Problemen, bevor Ihre Nutzer sie bemerken.",
+    svc5_title: "Workflow-Automatisierung", svc5_desc: "n8n-basierte Automatisierung von repetitiven DevOps-Aufgaben: Ticket-Erstellung, Dokumentation, Change Management.",
+    svc6_title: "Cloud Cost Intelligence", svc6_desc: "KI-gest\u00fctzte Analyse und Optimierung Ihrer Cloud-Kosten. Automatisches Right-Sizing und Spot-Instance-Management.",
+    itb_tag: "Unser Kern-Framework", itb_title: 'AI-Readiness Audit<br>powered by IBM ITBench',
+    itb_desc1: "Wir nutzen IBMs Open-Source-Framework ITBench, um Ihre Infrastruktur mit 94 realen SRE-Szenarien zu testen. So erfahren Sie exakt, welche Incidents AI heute schon automatisch l\u00f6sen kann \u2013 und wo menschliche Expertise unverzichtbar bleibt.",
+    itb_desc2: "Aktuelle Benchmarks zeigen: State-of-the-Art AI-Agenten l\u00f6sen nur 13,8% der SRE-Szenarien. Mit unseren architektonischen Optimierungen (Multi-Agent-Systeme, State Machines, Summarizer Agents) steigern wir die L\u00f6sungsrate um bis zu 53%.",
+    itb_stat1: "Reale Szenarien", itb_stat2: "Performance-Steigerung", itb_stat3: "Audit-Bereiche",
+    itb_badge: 'Basiert auf <strong>IBM Research &amp; UC Berkeley</strong> \u00b7 ICML 2025 \u00b7 AAAI 2026 \u00b7 Apache 2.0',
+    itb_how: "So funktioniert das ITBench Audit",
+    itb_step1_title: "Szenario-Deployment", itb_step1_desc: "Wir deployen reale Incident-Szenarien in einer isolierten Kopie Ihrer Kubernetes/OpenShift-Umgebung \u2013 kein Risiko f\u00fcr Produktion.",
+    itb_step2_title: "AI-Agent-Evaluation", itb_step2_desc: "Unsere SRE-Agenten analysieren Logs, Metriken und Traces (Prometheus, Jaeger, ClickHouse), diagnostizieren Root Causes und testen Remediation-Strategien.",
+    itb_step3_title: "MAST Failure Analysis", itb_step3_desc: "Mit der Multi-Agent System Failure Taxonomy (MAST) identifizieren wir exakt, wo Agenten scheitern \u2013 und welche architektonischen \u00c4nderungen die gr\u00f6\u00dfte Wirkung haben.",
+    itb_step4_title: "Readiness Report & Roadmap", itb_step4_desc: "Sie erhalten einen detaillierten Report mit Ihrem AI-Readiness-Score, priorisierten Automatisierungs-Empfehlungen und konkreter ROI-Berechnung.",
+    proc_tag: "Unser Ablauf", proc_title: "In 4 Wochen zur AI-Pipeline", proc_desc: "Kein monatelanges Consulting. Wir liefern funktionierende Automatisierung.",
+    proc1_title: "Infrastruktur-Audit", proc1_desc: "Analyse Ihrer bestehenden CI/CD-Pipelines, Monitoring und Incident-Prozesse. Identifikation der gr\u00f6\u00dften Automatisierungspotenziale.",
+    proc2_title: "AI-Strategie", proc2_desc: "Konkrete Roadmap mit priorisierten Use Cases, erwarteter Zeitersparnis und ROI-Berechnung f\u00fcr jeden Automatisierungsschritt.",
+    proc3_title: "Implementierung", proc3_desc: "Done-for-You Umsetzung der AI-Workflows direkt in Ihrer Infrastruktur. Keine Theorie \u2013 funktionierende Automatisierung.",
+    proc4_title: "Training & \u00dcbergabe", proc4_desc: "Ihr Team lernt, die AI-Systeme zu bedienen und weiterzuentwickeln. Inklusive Dokumentation und Support-Phase.",
+    tech_tag: "Technologie", tech_title: "Enterprise-grade Tech Stack", tech_desc: "Wir arbeiten mit den Tools, die Sie bereits nutzen \u2013 und erweitern sie mit KI und IBM ITBench.",
+    price_tag: "Pakete", price_title: "Transparent & fair", price_desc: "W\u00e4hlen Sie das Paket, das zu Ihrem Automatisierungsgrad passt.",
+    price1_sub: "F\u00fcr Teams, die AI testen wollen", price1_per: " / einmalig", price1_f1: "ITBench AI-Readiness Audit", price1_f2: "AI-Readiness-Score & Report", price1_f3: "AI-Roadmap mit 3 Use Cases", price1_f4: "1 automatisierter Workflow", price1_f5: "Dokumentation & 2h Training", price_inquire: "Anfragen",
+    price2_sub: "Komplette AI-DevOps Transformation", price2_per: " / Monat", price2_f1: "Alles aus Starter", price2_f2: "5 automatisierte Workflows", price2_f3: "ITBench SRE Agent Deployment", price2_f4: "MAST Failure Analysis", price2_f5: "Predictive Monitoring", price2_f6: "Monatliche Optimierung + Support", price_book: "Erstgespr\u00e4ch buchen",
+    price3_sub: "F\u00fcr komplexe Infrastrukturen", price3_amount: "Individuell", price3_f1: "Alles aus Professional", price3_f2: "Vollst\u00e4ndiges ITBench (SRE + CISO + FinOps)", price3_f3: "Custom Multi-Agent-Architektur", price3_f4: "Dedizierter AI Engineer", price3_f5: "EU AI Act Compliance", price_contact: "Kontakt aufnehmen",
+    badge_popular: "Beliebtestes Paket",
+    cta_title: "Bereit f\u00fcr intelligente DevOps?", cta_desc: "Kostenlose 30-Minuten-Analyse Ihrer Infrastruktur. Wir zeigen Ihnen konkret, wo KI Stunden sparen kann.",
+    form_name: "Ihr Name", form_email: "Ihre E-Mail-Adresse", form_company: "Unternehmen", form_team: "Teamgr\u00f6\u00dfe w\u00e4hlen", form_t1: "1-10 Mitarbeiter", form_t2: "11-50 Mitarbeiter", form_t3: "51-200 Mitarbeiter", form_t4: "200+ Mitarbeiter", form_submit: "Kostenlose Analyse anfragen \u2192", form_success: "Vielen Dank! Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
+    trusted_label: "Bew\u00e4hrt in allen Branchen",
+    cred_exp: "25+ Jahre DevOps & Cloud", cred_aws: "AWS Solutions Architect", cred_rh: "Red Hat Zertifiziert", cred_k8s: "Kubernetes Zertifiziert", cred_multi: "Mehrsprachig: DE EN PT AR FR",
+    branch_tag: "Branchen", branch_title: "Bew\u00e4hrt in allen Branchen", branch_desc: "25+ Jahre praktische Erfahrung in regulierten Hochverf\u00fcgbarkeitsumgebungen.",
+    br1_title: "Banking & Finanzen", br1_desc: "CI/CD-Pipelines f\u00fcr Handelsplattformen, Kernbankensysteme und regulatorische Compliance in streng regulierten Umgebungen.",
+    br2_title: "Telekommunikation", br2_desc: "Gro\u00dffl\u00e4chige Infrastruktur-Automatisierung, Netzwerk-Monitoring und 5G-Plattform-DevOps f\u00fcr f\u00fchrende Netzbetreiber.",
+    br3_title: "Automotive", br3_desc: "Connected-Vehicle-Plattformen, Embedded CI/CD und cloud-native Automotive-Anwendungen f\u00fcr Premium-OEMs.",
+    br4_title: "Technologie & Cloud", br4_desc: "Multi-Cloud-Architekturen (AWS, Azure, GCP, IBM Cloud), Kubernetes at Scale und Platform Engineering.",
+    br5_title: "\u00d6ffentlicher Sektor & NGO", br5_desc: "Sichere Infrastruktur f\u00fcr Beh\u00f6rden und NGOs \u2013 Compliance-first DevOps und souver\u00e4ne Cloud-L\u00f6sungen.",
+    br6_title: "Retail & E-Commerce", br6_desc: "Hochfrequentierte Plattformen \u2013 Auto-Scaling, Performance-Optimierung und Zero-Downtime-Deployments f\u00fcr Spitzenzeiten.",
+    footer_copy: "\u00a9 2026 DerSalvador AI \u2013 KI-gest\u00fctzte DevOps-Automatisierung", footer_imprint: "Impressum", footer_privacy: "Datenschutz"
+  },
+  pt: {
+    nav_services: "Servi\u00e7os", nav_branches: "Ind\u00fastrias", nav_process: "Processo", nav_tech: "Tecnologia", nav_pricing: "Pacotes", nav_cta: "Agendar Chamada",
+    hero_badge: "Automa\u00e7\u00e3o AI-DevOps para Empresas",
+    hero_title: 'Seus Pipelines DevOps.<br><em>Automatizados com Intelig\u00eancia.</em>',
+    hero_desc: "Implementamos solu\u00e7\u00f5es DevOps com IA \u2013 benchmarked com IBM ITBench \u2013 que reduzem tempos de deploy em 70%, resolvem incidentes automaticamente e economizam horas de trabalho manual para sua equipe.",
+    hero_cta1: "Solicitar An\u00e1lise Gratuita", hero_cta2: "Descobrir Servi\u00e7os",
+    stat1: "Anos de Experi\u00eancia DevOps", stat2: "Deploys mais R\u00e1pidos", stat3: "Pipelines Automatizados", stat4: "Mercado AI-Agent DE 2030",
+    services_tag: "Servi\u00e7os", services_title: "IA Encontra Infraestrutura", services_desc: "Combinamos expertise profunda em DevOps com IA de ponta \u2013 para automa\u00e7\u00e3o que realmente funciona.",
+    svc1_title: "AI-Incident Response", svc1_desc: "Detec\u00e7\u00e3o, an\u00e1lise e resolu\u00e7\u00e3o autom\u00e1tica de incidentes de infraestrutura atrav\u00e9s de agentes de IA. Powered by IBM ITBench SRE \u2013 reduz MTTR em at\u00e9 80%.",
+    svc2_title: "CI/CD Inteligente", svc2_desc: "Pipelines otimizados por IA que priorizam testes automaticamente, detectam gargalos e agendam deploys de forma inteligente.",
+    svc3_title: "AI Security Scanning", svc3_desc: "An\u00e1lise cont\u00ednua de Terraform, Helm Charts e manifests K8s em busca de vulnerabilidades \u2013 antes de chegarem \u00e0 produ\u00e7\u00e3o.",
+    svc4_title: "Monitoramento Preditivo", svc4_desc: "Previs\u00e3o baseada em IA de gargalos de capacidade e problemas de performance antes que seus usu\u00e1rios percebam.",
+    svc5_title: "Automa\u00e7\u00e3o de Workflows", svc5_desc: "Automa\u00e7\u00e3o baseada em n8n de tarefas DevOps repetitivas: cria\u00e7\u00e3o de tickets, documenta\u00e7\u00e3o, gest\u00e3o de mudan\u00e7as.",
+    svc6_title: "Cloud Cost Intelligence", svc6_desc: "An\u00e1lise e otimiza\u00e7\u00e3o de custos cloud com IA. Right-sizing autom\u00e1tico e gerenciamento de spot instances.",
+    itb_tag: "Nosso Framework Central", itb_title: 'Auditoria AI-Readiness<br>powered by IBM ITBench',
+    itb_desc1: "Utilizamos o framework open-source ITBench da IBM para testar sua infraestrutura com 94 cen\u00e1rios SRE reais. Assim voc\u00ea descobre exatamente quais incidentes a IA j\u00e1 pode resolver automaticamente \u2013 e onde a expertise humana permanece essencial.",
+    itb_desc2: "Benchmarks atuais mostram: agentes de IA state-of-the-art resolvem apenas 13,8% dos cen\u00e1rios SRE. Com nossas otimiza\u00e7\u00f5es arquiteturais (sistemas multi-agente, state machines, summarizer agents) aumentamos a taxa de resolu\u00e7\u00e3o em at\u00e9 53%.",
+    itb_stat1: "Cen\u00e1rios Reais", itb_stat2: "Aumento de Performance", itb_stat3: "\u00c1reas de Auditoria",
+    itb_badge: 'Baseado em <strong>IBM Research &amp; UC Berkeley</strong> \u00b7 ICML 2025 \u00b7 AAAI 2026 \u00b7 Apache 2.0',
+    itb_how: "Como Funciona a Auditoria ITBench",
+    itb_step1_title: "Deploy de Cen\u00e1rios", itb_step1_desc: "Deployamos cen\u00e1rios reais de incidentes em uma c\u00f3pia isolada do seu ambiente Kubernetes/OpenShift \u2013 zero risco para produ\u00e7\u00e3o.",
+    itb_step2_title: "Avalia\u00e7\u00e3o de Agentes IA", itb_step2_desc: "Nossos agentes SRE analisam logs, m\u00e9tricas e traces (Prometheus, Jaeger, ClickHouse), diagnosticam causas raiz e testam estrat\u00e9gias de remedia\u00e7\u00e3o.",
+    itb_step3_title: "An\u00e1lise de Falhas MAST", itb_step3_desc: "Usando a Multi-Agent System Failure Taxonomy (MAST), identificamos exatamente onde os agentes falham \u2013 e quais mudan\u00e7as arquiteturais t\u00eam maior impacto.",
+    itb_step4_title: "Relat\u00f3rio & Roadmap", itb_step4_desc: "Voc\u00ea recebe um relat\u00f3rio detalhado com seu score de AI-Readiness, recomenda\u00e7\u00f5es priorizadas de automa\u00e7\u00e3o e c\u00e1lculos concretos de ROI.",
+    proc_tag: "Nosso Processo", proc_title: "Pipeline de IA em 4 Semanas", proc_desc: "Sem meses de consultoria. Entregamos automa\u00e7\u00e3o funcional.",
+    proc1_title: "Auditoria de Infraestrutura", proc1_desc: "An\u00e1lise dos seus pipelines CI/CD existentes, monitoramento e processos de incidentes. Identifica\u00e7\u00e3o das maiores oportunidades de automa\u00e7\u00e3o.",
+    proc2_title: "Estrat\u00e9gia de IA", proc2_desc: "Roadmap concreto com use cases priorizados, economia de tempo esperada e c\u00e1lculo de ROI para cada etapa de automa\u00e7\u00e3o.",
+    proc3_title: "Implementa\u00e7\u00e3o", proc3_desc: "Implementa\u00e7\u00e3o done-for-you dos workflows de IA diretamente na sua infraestrutura. Sem teoria \u2013 automa\u00e7\u00e3o funcional.",
+    proc4_title: "Treinamento & Entrega", proc4_desc: "Sua equipe aprende a operar e evoluir os sistemas de IA. Incluindo documenta\u00e7\u00e3o e fase de suporte.",
+    tech_tag: "Tecnologia", tech_title: "Tech Stack Enterprise-grade", tech_desc: "Trabalhamos com as ferramentas que voc\u00ea j\u00e1 usa \u2013 e as estendemos com IA e IBM ITBench.",
+    price_tag: "Pacotes", price_title: "Transparente & Justo", price_desc: "Escolha o pacote que se adapta ao seu n\u00edvel de automa\u00e7\u00e3o.",
+    price1_sub: "Para equipes que querem testar IA", price1_per: " / \u00fanico", price1_f1: "Auditoria ITBench AI-Readiness", price1_f2: "Score & Relat\u00f3rio AI-Readiness", price1_f3: "Roadmap de IA com 3 Use Cases", price1_f4: "1 Workflow Automatizado", price1_f5: "Documenta\u00e7\u00e3o & 2h Treinamento", price_inquire: "Consultar",
+    price2_sub: "Transforma\u00e7\u00e3o AI-DevOps Completa", price2_per: " / m\u00eas", price2_f1: "Tudo do Starter", price2_f2: "5 Workflows Automatizados", price2_f3: "Deploy de Agente ITBench SRE", price2_f4: "An\u00e1lise de Falhas MAST", price2_f5: "Monitoramento Preditivo", price2_f6: "Otimiza\u00e7\u00e3o Mensal + Suporte", price_book: "Agendar Chamada",
+    price3_sub: "Para infraestruturas complexas", price3_amount: "Personalizado", price3_f1: "Tudo do Professional", price3_f2: "ITBench Completo (SRE + CISO + FinOps)", price3_f3: "Arquitetura Multi-Agente Customizada", price3_f4: "Engenheiro de IA Dedicado", price3_f5: "Conformidade EU AI Act", price_contact: "Entrar em Contato",
+    badge_popular: "Mais Popular",
+    cta_title: "Pronto para DevOps Inteligente?", cta_desc: "An\u00e1lise gratuita de 30 minutos da sua infraestrutura. Mostramos exatamente onde a IA pode economizar horas.",
+    form_name: "Seu Nome", form_email: "Seu E-mail", form_company: "Empresa", form_team: "Tamanho da equipe", form_t1: "1-10 Funcion\u00e1rios", form_t2: "11-50 Funcion\u00e1rios", form_t3: "51-200 Funcion\u00e1rios", form_t4: "200+ Funcion\u00e1rios", form_submit: "Solicitar An\u00e1lise Gratuita \u2192", form_success: "Obrigado! Retornaremos em até 24 horas.",
+    trusted_label: "Comprovado em todas as ind\u00fastrias",
+    cred_exp: "25+ Anos DevOps & Cloud", cred_aws: "AWS Solutions Architect", cred_rh: "Red Hat Certificado", cred_k8s: "Kubernetes Certificado", cred_multi: "Multilingual: DE EN PT AR FR",
+    branch_tag: "Ind\u00fastrias", branch_title: "Comprovado em Todas as Ind\u00fastrias", branch_desc: "25+ anos de experi\u00eancia pr\u00e1tica em ambientes regulados e de alta disponibilidade.",
+    br1_title: "Bancos & Finan\u00e7as", br1_desc: "Pipelines CI/CD para plataformas de trading, sistemas banc\u00e1rios centrais e conformidade regulat\u00f3ria em ambientes altamente regulados.",
+    br2_title: "Telecomunica\u00e7\u00f5es", br2_desc: "Automa\u00e7\u00e3o de infraestrutura em larga escala, monitoramento de rede e DevOps para plataformas 5G de grandes operadoras.",
+    br3_title: "Automotivo", br3_desc: "Plataformas de ve\u00edculos conectados, CI/CD embarcado e aplica\u00e7\u00f5es automotivas cloud-native para OEMs premium.",
+    br4_title: "Tecnologia & Cloud", br4_desc: "Arquiteturas multi-cloud (AWS, Azure, GCP, IBM Cloud), Kubernetes em escala e platform engineering.",
+    br5_title: "Setor P\u00fablico & ONG", br5_desc: "Infraestrutura segura para ag\u00eancias governamentais e ONGs \u2013 DevOps compliance-first e solu\u00e7\u00f5es de cloud soberana.",
+    br6_title: "Varejo & E-Commerce", br6_desc: "Plataformas de alto tr\u00e1fego \u2013 auto-scaling, otimiza\u00e7\u00e3o de performance e deploys zero-downtime para picos de demanda.",
+    footer_copy: "\u00a9 2026 DerSalvador AI \u2013 Automa\u00e7\u00e3o DevOps com IA", footer_imprint: "Impress\u00e3o", footer_privacy: "Privacidade"
+  },
+  ar: {
+    nav_services: "\u0627\u0644\u062e\u062f\u0645\u0627\u062a", nav_branches: "\u0627\u0644\u0642\u0637\u0627\u0639\u0627\u062a", nav_process: "\u0627\u0644\u0639\u0645\u0644\u064a\u0629", nav_tech: "\u0627\u0644\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627", nav_pricing: "\u0627\u0644\u0628\u0627\u0642\u0627\u062a", nav_cta: "\u0627\u062d\u062c\u0632 \u0645\u0643\u0627\u0644\u0645\u0629",
+    hero_badge: "\u0623\u062a\u0645\u062a\u0629 AI-DevOps \u0644\u0644\u0634\u0631\u0643\u0627\u062a",
+    hero_title: '\u062e\u0637\u0648\u0637 \u0623\u0646\u0627\u0628\u064a\u0628 DevOps \u0627\u0644\u062e\u0627\u0635\u0629 \u0628\u0643.<br><em>\u0645\u0624\u062a\u0645\u062a\u0629 \u0628\u0630\u0643\u0627\u0621.</em>',
+    hero_desc: "\u0646\u0646\u0641\u0630 \u062d\u0644\u0648\u0644 DevOps \u0645\u062f\u0639\u0648\u0645\u0629 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u2013 \u0645\u0639\u064a\u0627\u0631\u064a\u0629 \u0645\u0639 IBM ITBench \u2013 \u062a\u0642\u0644\u0644 \u0623\u0648\u0642\u0627\u062a \u0627\u0644\u0646\u0634\u0631 \u0628\u0646\u0633\u0628\u0629 70\u066a\u060c \u0648\u062a\u062d\u0644 \u0627\u0644\u062d\u0648\u0627\u062f\u062b \u062a\u0644\u0642\u0627\u0626\u064a\u064b\u0627\u060c \u0648\u062a\u0648\u0641\u0631 \u0644\u0641\u0631\u064a\u0642\u0643 \u0633\u0627\u0639\u0627\u062a \u0645\u0646 \u0627\u0644\u0639\u0645\u0644 \u0627\u0644\u064a\u062f\u0648\u064a.",
+    hero_cta1: "\u0627\u0637\u0644\u0628 \u062a\u062d\u0644\u064a\u0644\u064b\u0627 \u0645\u062c\u0627\u0646\u064a\u064b\u0627", hero_cta2: "\u0627\u0643\u062a\u0634\u0641 \u0627\u0644\u062e\u062f\u0645\u0627\u062a",
+    stat1: "\u0633\u0646\u0648\u0627\u062a \u062e\u0628\u0631\u0629 DevOps", stat2: "\u0646\u0634\u0631 \u0623\u0633\u0631\u0639", stat3: "\u062e\u0637\u0648\u0637 \u0623\u0646\u0627\u0628\u064a\u0628 \u0645\u0624\u062a\u0645\u062a\u0629", stat4: "\u0633\u0648\u0642 \u0648\u0643\u064a\u0644 AI \u0623\u0644\u0645\u0627\u0646\u064a\u0627 2030",
+    services_tag: "\u0627\u0644\u062e\u062f\u0645\u0627\u062a", services_title: "\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u064a\u0644\u062a\u0642\u064a \u0628\u0627\u0644\u0628\u0646\u064a\u0629 \u0627\u0644\u062a\u062d\u062a\u064a\u0629", services_desc: "\u0646\u062c\u0645\u0639 \u0628\u064a\u0646 \u062e\u0628\u0631\u0629 DevOps \u0627\u0644\u0639\u0645\u064a\u0642\u0629 \u0648\u0623\u062d\u062f\u062b \u062a\u0642\u0646\u064a\u0627\u062a \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u2013 \u0644\u0623\u062a\u0645\u062a\u0629 \u062a\u0639\u0645\u0644 \u062d\u0642\u064b\u0627.",
+    svc1_title: "\u0627\u0633\u062a\u062c\u0627\u0628\u0629 \u0627\u0644\u062d\u0648\u0627\u062f\u062b \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a", svc1_desc: "\u0627\u0643\u062a\u0634\u0627\u0641 \u0648\u062a\u062d\u0644\u064a\u0644 \u0648\u062d\u0644 \u062d\u0648\u0627\u062f\u062b \u0627\u0644\u0628\u0646\u064a\u0629 \u0627\u0644\u062a\u062d\u062a\u064a\u0629 \u062a\u0644\u0642\u0627\u0626\u064a\u064b\u0627 \u0628\u0648\u0627\u0633\u0637\u0629 \u0648\u0643\u0644\u0627\u0621 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a. \u0645\u062f\u0639\u0648\u0645 \u0628\u0640 IBM ITBench SRE \u2013 \u064a\u0642\u0644\u0644 MTTR \u0628\u0646\u0633\u0628\u0629 \u062a\u0635\u0644 \u0625\u0644\u0649 80\u066a.",
+    svc2_title: "CI/CD \u0630\u0643\u064a", svc2_desc: "\u062e\u0637\u0648\u0637 \u0623\u0646\u0627\u0628\u064a\u0628 \u0645\u062d\u0633\u0651\u0646\u0629 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u062a\u0631\u062a\u0628 \u0627\u0644\u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u062a\u0644\u0642\u0627\u0626\u064a\u064b\u0627 \u0648\u062a\u0643\u062a\u0634\u0641 \u0627\u0644\u0627\u062e\u062a\u0646\u0627\u0642\u0627\u062a \u0648\u062a\u062c\u062f\u0648\u0644 \u0627\u0644\u0646\u0634\u0631 \u0628\u0630\u0643\u0627\u0621.",
+    svc3_title: "\u0641\u062d\u0635 \u0623\u0645\u0646\u064a \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a", svc3_desc: "\u062a\u062d\u0644\u064a\u0644 \u0645\u0633\u062a\u0645\u0631 \u0644\u0640 Terraform \u0648Helm Charts \u0648\u0645\u0644\u0641\u0627\u062a K8s \u0644\u0644\u0643\u0634\u0641 \u0639\u0646 \u0627\u0644\u062b\u063a\u0631\u0627\u062a \u2013 \u0642\u0628\u0644 \u0648\u0635\u0648\u0644\u0647\u0627 \u0625\u0644\u0649 \u0627\u0644\u0625\u0646\u062a\u0627\u062c.",
+    svc4_title: "\u0645\u0631\u0627\u0642\u0628\u0629 \u062a\u0646\u0628\u0624\u064a\u0629", svc4_desc: "\u062a\u0646\u0628\u0624 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0628\u0627\u062e\u062a\u0646\u0627\u0642\u0627\u062a \u0627\u0644\u0633\u0639\u0629 \u0648\u0645\u0634\u0627\u0643\u0644 \u0627\u0644\u0623\u062f\u0627\u0621 \u0642\u0628\u0644 \u0623\u0646 \u064a\u0644\u0627\u062d\u0638\u0647\u0627 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u0648\u0646.",
+    svc5_title: "\u0623\u062a\u0645\u062a\u0629 \u0633\u064a\u0631 \u0627\u0644\u0639\u0645\u0644", svc5_desc: "\u0623\u062a\u0645\u062a\u0629 \u0645\u0647\u0627\u0645 DevOps \u0627\u0644\u0645\u062a\u0643\u0631\u0631\u0629 \u0628\u0627\u0633\u062a\u062e\u062f\u0627\u0645 n8n: \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u062a\u0630\u0627\u0643\u0631\u060c \u0627\u0644\u062a\u0648\u062b\u064a\u0642\u060c \u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u062a\u063a\u064a\u064a\u0631\u0627\u062a.",
+    svc6_title: "\u0630\u0643\u0627\u0621 \u062a\u0643\u0627\u0644\u064a\u0641 \u0627\u0644\u0633\u062d\u0627\u0628\u0629", svc6_desc: "\u062a\u062d\u0644\u064a\u0644 \u0648\u062a\u062d\u0633\u064a\u0646 \u062a\u0643\u0627\u0644\u064a\u0641 \u0627\u0644\u0633\u062d\u0627\u0628\u0629 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a. \u062a\u062d\u062c\u064a\u0645 \u062a\u0644\u0642\u0627\u0626\u064a \u0648\u0625\u062f\u0627\u0631\u0629 Spot Instances.",
+    itb_tag: "\u0625\u0637\u0627\u0631\u0646\u0627 \u0627\u0644\u0623\u0633\u0627\u0633\u064a", itb_title: '\u062a\u062f\u0642\u064a\u0642 \u062c\u0627\u0647\u0632\u064a\u0629 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a<br>powered by IBM ITBench',
+    itb_desc1: "\u0646\u0633\u062a\u062e\u062f\u0645 \u0625\u0637\u0627\u0631 IBM \u0645\u0641\u062a\u0648\u062d \u0627\u0644\u0645\u0635\u062f\u0631 ITBench \u0644\u0627\u062e\u062a\u0628\u0627\u0631 \u0628\u0646\u064a\u062a\u0643 \u0627\u0644\u062a\u062d\u062a\u064a\u0629 \u0628\u0640 94 \u0633\u064a\u0646\u0627\u0631\u064a\u0648 SRE \u062d\u0642\u064a\u0642\u064a. \u0647\u0630\u0627 \u064a\u062e\u0628\u0631\u0643 \u0628\u0627\u0644\u0636\u0628\u0637 \u0623\u064a \u0627\u0644\u062d\u0648\u0627\u062f\u062b \u064a\u0645\u0643\u0646 \u0644\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u062d\u0644\u0647\u0627 \u062a\u0644\u0642\u0627\u0626\u064a\u064b\u0627 \u2013 \u0648\u0623\u064a\u0646 \u062a\u0628\u0642\u0649 \u0627\u0644\u062e\u0628\u0631\u0629 \u0627\u0644\u0628\u0634\u0631\u064a\u0629 \u0636\u0631\u0648\u0631\u064a\u0629.",
+    itb_desc2: "\u062a\u0638\u0647\u0631 \u0627\u0644\u0645\u0639\u0627\u064a\u064a\u0631 \u0627\u0644\u062d\u0627\u0644\u064a\u0629: \u0648\u0643\u0644\u0627\u0621 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0627\u0644\u0645\u062a\u0642\u062f\u0645\u0648\u0646 \u064a\u062d\u0644\u0648\u0646 \u0641\u0642\u0637 13.8\u066a \u0645\u0646 \u0633\u064a\u0646\u0627\u0631\u064a\u0648\u0647\u0627\u062a SRE. \u0645\u0639 \u062a\u062d\u0633\u064a\u0646\u0627\u062a\u0646\u0627 \u0627\u0644\u0645\u0639\u0645\u0627\u0631\u064a\u0629 (\u0623\u0646\u0638\u0645\u0629 \u0645\u062a\u0639\u062f\u062f\u0629 \u0627\u0644\u0648\u0643\u0644\u0627\u0621\u060c State Machines\u060c Summarizer Agents) \u0646\u0632\u064a\u062f \u0645\u0639\u062f\u0644 \u0627\u0644\u062d\u0644 \u0628\u0646\u0633\u0628\u0629 \u062a\u0635\u0644 \u0625\u0644\u0649 53\u066a.",
+    itb_stat1: "\u0633\u064a\u0646\u0627\u0631\u064a\u0648\u0647\u0627\u062a \u062d\u0642\u064a\u0642\u064a\u0629", itb_stat2: "\u0632\u064a\u0627\u062f\u0629 \u0627\u0644\u0623\u062f\u0627\u0621", itb_stat3: "\u0645\u062c\u0627\u0644\u0627\u062a \u0627\u0644\u062a\u062f\u0642\u064a\u0642",
+    itb_badge: '\u0645\u0628\u0646\u064a \u0639\u0644\u0649 <strong>IBM Research &amp; UC Berkeley</strong> \u00b7 ICML 2025 \u00b7 AAAI 2026 \u00b7 Apache 2.0',
+    itb_how: "\u0643\u064a\u0641 \u064a\u0639\u0645\u0644 \u062a\u062f\u0642\u064a\u0642 ITBench",
+    itb_step1_title: "\u0646\u0634\u0631 \u0627\u0644\u0633\u064a\u0646\u0627\u0631\u064a\u0648\u0647\u0627\u062a", itb_step1_desc: "\u0646\u0646\u0634\u0631 \u0633\u064a\u0646\u0627\u0631\u064a\u0648\u0647\u0627\u062a \u062d\u0648\u0627\u062f\u062b \u062d\u0642\u064a\u0642\u064a\u0629 \u0641\u064a \u0646\u0633\u062e\u0629 \u0645\u0639\u0632\u0648\u0644\u0629 \u0645\u0646 \u0628\u064a\u0626\u0629 Kubernetes/OpenShift \u0627\u0644\u062e\u0627\u0635\u0629 \u0628\u0643 \u2013 \u0628\u062f\u0648\u0646 \u0645\u062e\u0627\u0637\u0631 \u0639\u0644\u0649 \u0627\u0644\u0625\u0646\u062a\u0627\u062c.",
+    itb_step2_title: "\u062a\u0642\u064a\u064a\u0645 \u0648\u0643\u0644\u0627\u0621 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a", itb_step2_desc: "\u064a\u062d\u0644\u0644 \u0648\u0643\u0644\u0627\u0624\u0646\u0627 SRE \u0627\u0644\u0633\u062c\u0644\u0627\u062a \u0648\u0627\u0644\u0645\u0642\u0627\u064a\u064a\u0633 \u0648\u0627\u0644\u062a\u062a\u0628\u0639\u0627\u062a (Prometheus\u060c Jaeger\u060c ClickHouse) \u0648\u064a\u0634\u062e\u0635\u0648\u0646 \u0627\u0644\u0623\u0633\u0628\u0627\u0628 \u0627\u0644\u062c\u0630\u0631\u064a\u0629 \u0648\u064a\u062e\u062a\u0628\u0631\u0648\u0646 \u0627\u0633\u062a\u0631\u0627\u062a\u064a\u062c\u064a\u0627\u062a \u0627\u0644\u0639\u0644\u0627\u062c.",
+    itb_step3_title: "\u062a\u062d\u0644\u064a\u0644 \u0627\u0644\u0625\u062e\u0641\u0627\u0642\u0627\u062a MAST", itb_step3_desc: "\u0628\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u062a\u0635\u0646\u064a\u0641 \u0625\u062e\u0641\u0627\u0642\u0627\u062a \u0627\u0644\u0623\u0646\u0638\u0645\u0629 \u0645\u062a\u0639\u062f\u062f\u0629 \u0627\u0644\u0648\u0643\u0644\u0627\u0621 (MAST)\u060c \u0646\u062d\u062f\u062f \u0628\u0627\u0644\u0636\u0628\u0637 \u0623\u064a\u0646 \u064a\u0641\u0634\u0644 \u0627\u0644\u0648\u0643\u0644\u0627\u0621 \u2013 \u0648\u0623\u064a \u0627\u0644\u062a\u063a\u064a\u064a\u0631\u0627\u062a \u0627\u0644\u0645\u0639\u0645\u0627\u0631\u064a\u0629 \u0644\u0647\u0627 \u0627\u0644\u0623\u062b\u0631 \u0627\u0644\u0623\u0643\u0628\u0631.",
+    itb_step4_title: "\u062a\u0642\u0631\u064a\u0631 \u0627\u0644\u062c\u0627\u0647\u0632\u064a\u0629 \u0648\u062e\u0627\u0631\u0637\u0629 \u0627\u0644\u0637\u0631\u064a\u0642", itb_step4_desc: "\u062a\u062d\u0635\u0644 \u0639\u0644\u0649 \u062a\u0642\u0631\u064a\u0631 \u0645\u0641\u0635\u0644 \u0645\u0639 \u062f\u0631\u062c\u0629 \u062c\u0627\u0647\u0632\u064a\u0629 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a\u060c \u0648\u062a\u0648\u0635\u064a\u0627\u062a \u0623\u062a\u0645\u062a\u0629 \u0645\u0631\u062a\u0628\u0629 \u062d\u0633\u0628 \u0627\u0644\u0623\u0648\u0644\u0648\u064a\u0629\u060c \u0648\u062d\u0633\u0627\u0628\u0627\u062a ROI \u0645\u0644\u0645\u0648\u0633\u0629.",
+    proc_tag: "\u0639\u0645\u0644\u064a\u062a\u0646\u0627", proc_title: "\u062e\u0637 \u0623\u0646\u0627\u0628\u064a\u0628 AI \u0641\u064a 4 \u0623\u0633\u0627\u0628\u064a\u0639", proc_desc: "\u0628\u062f\u0648\u0646 \u0623\u0634\u0647\u0631 \u0645\u0646 \u0627\u0644\u0627\u0633\u062a\u0634\u0627\u0631\u0627\u062a. \u0646\u0642\u062f\u0645 \u0623\u062a\u0645\u062a\u0629 \u0639\u0627\u0645\u0644\u0629.",
+    proc1_title: "\u062a\u062f\u0642\u064a\u0642 \u0627\u0644\u0628\u0646\u064a\u0629 \u0627\u0644\u062a\u062d\u062a\u064a\u0629", proc1_desc: "\u062a\u062d\u0644\u064a\u0644 \u062e\u0637\u0648\u0637 CI/CD \u0627\u0644\u062d\u0627\u0644\u064a\u0629 \u0648\u0627\u0644\u0645\u0631\u0627\u0642\u0628\u0629 \u0648\u0639\u0645\u0644\u064a\u0627\u062a \u0627\u0644\u062d\u0648\u0627\u062f\u062b. \u062a\u062d\u062f\u064a\u062f \u0623\u0643\u0628\u0631 \u0641\u0631\u0635 \u0627\u0644\u0623\u062a\u0645\u062a\u0629.",
+    proc2_title: "\u0627\u0633\u062a\u0631\u0627\u062a\u064a\u062c\u064a\u0629 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a", proc2_desc: "\u062e\u0627\u0631\u0637\u0629 \u0637\u0631\u064a\u0642 \u0645\u0644\u0645\u0648\u0633\u0629 \u0645\u0639 \u062d\u0627\u0644\u0627\u062a \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0645\u0631\u062a\u0628\u0629 \u062d\u0633\u0628 \u0627\u0644\u0623\u0648\u0644\u0648\u064a\u0629 \u0648\u062a\u0648\u0641\u064a\u0631 \u0627\u0644\u0648\u0642\u062a \u0627\u0644\u0645\u062a\u0648\u0642\u0639 \u0648\u062d\u0633\u0627\u0628 ROI \u0644\u0643\u0644 \u062e\u0637\u0648\u0629.",
+    proc3_title: "\u0627\u0644\u062a\u0646\u0641\u064a\u0630", proc3_desc: "\u062a\u0646\u0641\u064a\u0630 \u0643\u0627\u0645\u0644 \u0644\u0633\u064a\u0631 \u0639\u0645\u0644 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0645\u0628\u0627\u0634\u0631\u0629 \u0641\u064a \u0628\u0646\u064a\u062a\u0643 \u0627\u0644\u062a\u062d\u062a\u064a\u0629. \u0628\u062f\u0648\u0646 \u0646\u0638\u0631\u064a\u0627\u062a \u2013 \u0623\u062a\u0645\u062a\u0629 \u0639\u0627\u0645\u0644\u0629.",
+    proc4_title: "\u0627\u0644\u062a\u062f\u0631\u064a\u0628 \u0648\u0627\u0644\u062a\u0633\u0644\u064a\u0645", proc4_desc: "\u064a\u062a\u0639\u0644\u0645 \u0641\u0631\u064a\u0642\u0643 \u062a\u0634\u063a\u064a\u0644 \u0648\u062a\u0637\u0648\u064a\u0631 \u0623\u0646\u0638\u0645\u0629 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a. \u0634\u0627\u0645\u0644 \u0627\u0644\u062a\u0648\u062b\u064a\u0642 \u0648\u0645\u0631\u062d\u0644\u0629 \u0627\u0644\u062f\u0639\u0645.",
+    tech_tag: "\u0627\u0644\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627", tech_title: "\u062d\u0632\u0645\u0629 \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0629 \u0628\u0645\u0633\u062a\u0648\u0649 \u0627\u0644\u0645\u0624\u0633\u0633\u0627\u062a", tech_desc: "\u0646\u0639\u0645\u0644 \u0645\u0639 \u0627\u0644\u0623\u062f\u0648\u0627\u062a \u0627\u0644\u062a\u064a \u062a\u0633\u062a\u062e\u062f\u0645\u0647\u0627 \u0628\u0627\u0644\u0641\u0639\u0644 \u2013 \u0648\u0646\u0648\u0633\u0639\u0647\u0627 \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0648IBM ITBench.",
+    price_tag: "\u0627\u0644\u0628\u0627\u0642\u0627\u062a", price_title: "\u0634\u0641\u0627\u0641\u0629 \u0648\u0639\u062f\u0627\u0644\u0629", price_desc: "\u0627\u062e\u062a\u0631 \u0627\u0644\u0628\u0627\u0642\u0629 \u0627\u0644\u062a\u064a \u062a\u0646\u0627\u0633\u0628 \u0645\u0633\u062a\u0648\u0649 \u0623\u062a\u0645\u062a\u062a\u0643.",
+    price1_sub: "\u0644\u0644\u0641\u0631\u0642 \u0627\u0644\u062a\u064a \u062a\u0631\u064a\u062f \u062a\u062c\u0631\u0628\u0629 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a", price1_per: " / \u0645\u0631\u0629 \u0648\u0627\u062d\u062f\u0629", price1_f1: "\u062a\u062f\u0642\u064a\u0642 \u062c\u0627\u0647\u0632\u064a\u0629 AI \u0628\u0640 ITBench", price1_f2: "\u062f\u0631\u062c\u0629 \u0648\u062a\u0642\u0631\u064a\u0631 \u062c\u0627\u0647\u0632\u064a\u0629 AI", price1_f3: "\u062e\u0627\u0631\u0637\u0629 \u0637\u0631\u064a\u0642 AI \u0645\u0639 3 \u062d\u0627\u0644\u0627\u062a \u0627\u0633\u062a\u062e\u062f\u0627\u0645", price1_f4: "1 \u0633\u064a\u0631 \u0639\u0645\u0644 \u0645\u0624\u062a\u0645\u062a", price1_f5: "\u062a\u0648\u062b\u064a\u0642 \u0648\u062a\u062f\u0631\u064a\u0628 \u0633\u0627\u0639\u062a\u064a\u0646", price_inquire: "\u0627\u0633\u062a\u0641\u0633\u0631",
+    price2_sub: "\u062a\u062d\u0648\u0644 AI-DevOps \u0643\u0627\u0645\u0644", price2_per: " / \u0634\u0647\u0631\u064a\u064b\u0627", price2_f1: "\u0643\u0644 \u0645\u0627 \u0641\u064a Starter", price2_f2: "5 \u0633\u064a\u0631\u0627\u062a \u0639\u0645\u0644 \u0645\u0624\u062a\u0645\u062a\u0629", price2_f3: "\u0646\u0634\u0631 \u0648\u0643\u064a\u0644 ITBench SRE", price2_f4: "\u062a\u062d\u0644\u064a\u0644 \u0627\u0644\u0625\u062e\u0641\u0627\u0642\u0627\u062a MAST", price2_f5: "\u0645\u0631\u0627\u0642\u0628\u0629 \u062a\u0646\u0628\u0624\u064a\u0629", price2_f6: "\u062a\u062d\u0633\u064a\u0646 \u0634\u0647\u0631\u064a + \u062f\u0639\u0645", price_book: "\u0627\u062d\u062c\u0632 \u0645\u0643\u0627\u0644\u0645\u0629",
+    price3_sub: "\u0644\u0644\u0628\u0646\u0649 \u0627\u0644\u062a\u062d\u062a\u064a\u0629 \u0627\u0644\u0645\u0639\u0642\u062f\u0629", price3_amount: "\u0645\u062e\u0635\u0635", price3_f1: "\u0643\u0644 \u0645\u0627 \u0641\u064a Professional", price3_f2: "ITBench \u0643\u0627\u0645\u0644 (SRE + CISO + FinOps)", price3_f3: "\u0647\u0646\u062f\u0633\u0629 \u0645\u062a\u0639\u062f\u062f\u0629 \u0627\u0644\u0648\u0643\u0644\u0627\u0621 \u0645\u062e\u0635\u0635\u0629", price3_f4: "\u0645\u0647\u0646\u062f\u0633 \u0630\u0643\u0627\u0621 \u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0645\u062e\u0635\u0635", price3_f5: "\u0627\u0645\u062a\u062b\u0627\u0644 \u0642\u0627\u0646\u0648\u0646 AI \u0627\u0644\u0623\u0648\u0631\u0648\u0628\u064a", price_contact: "\u062a\u0648\u0627\u0635\u0644 \u0645\u0639\u0646\u0627",
+    badge_popular: "\u0627\u0644\u0623\u0643\u062b\u0631 \u0634\u0639\u0628\u064a\u0629",
+    cta_title: "\u062c\u0627\u0647\u0632 \u0644\u0640 DevOps \u0627\u0644\u0630\u0643\u064a\u061f", cta_desc: "\u062a\u062d\u0644\u064a\u0644 \u0645\u062c\u0627\u0646\u064a \u0644\u0645\u062f\u0629 30 \u062f\u0642\u064a\u0642\u0629 \u0644\u0628\u0646\u064a\u062a\u0643 \u0627\u0644\u062a\u062d\u062a\u064a\u0629. \u0646\u0631\u064a\u0643 \u0628\u0627\u0644\u0636\u0628\u0637 \u0623\u064a\u0646 \u064a\u0645\u0643\u0646 \u0644\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u062a\u0648\u0641\u064a\u0631 \u0633\u0627\u0639\u0627\u062a.",
+    form_name: "\u0627\u0633\u0645\u0643", form_email: "\u0628\u0631\u064a\u062f\u0643 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a", form_company: "\u0627\u0644\u0634\u0631\u0643\u0629", form_team: "\u062d\u062c\u0645 \u0627\u0644\u0641\u0631\u064a\u0642", form_t1: "1-10 \u0645\u0648\u0638\u0641\u064a\u0646", form_t2: "11-50 \u0645\u0648\u0638\u0641\u064b\u0627", form_t3: "51-200 \u0645\u0648\u0638\u0641\u064b\u0627", form_t4: "+200 \u0645\u0648\u0638\u0641", form_submit: "\u0627\u0637\u0644\u0628 \u062a\u062d\u0644\u064a\u0644\u064b\u0627 \u0645\u062c\u0627\u0646\u064a\u064b\u0627 \u2190", form_success: "شكراً لك! سنعود إليك خلال 24 ساعة.",
+    trusted_label: "\u0645\u062b\u0628\u062a \u0639\u0628\u0631 \u062c\u0645\u064a\u0639 \u0627\u0644\u0642\u0637\u0627\u0639\u0627\u062a",
+    cred_exp: "25+ \u0639\u0627\u0645\u064b\u0627 DevOps & Cloud", cred_aws: "AWS Solutions Architect", cred_rh: "Red Hat \u0645\u0639\u062a\u0645\u062f", cred_k8s: "Kubernetes \u0645\u0639\u062a\u0645\u062f", cred_multi: "\u0645\u062a\u0639\u062f\u062f \u0627\u0644\u0644\u063a\u0627\u062a: DE EN PT AR FR",
+    branch_tag: "\u0627\u0644\u0642\u0637\u0627\u0639\u0627\u062a", branch_title: "\u0645\u062b\u0628\u062a \u0639\u0628\u0631 \u0627\u0644\u0642\u0637\u0627\u0639\u0627\u062a", branch_desc: "25+ \u0639\u0627\u0645\u064b\u0627 \u0645\u0646 \u0627\u0644\u062e\u0628\u0631\u0629 \u0627\u0644\u0639\u0645\u0644\u064a\u0629 \u0641\u064a \u0628\u064a\u0626\u0627\u062a \u0645\u0646\u0638\u0645\u0629 \u0639\u0627\u0644\u064a\u0629 \u0627\u0644\u062a\u0648\u0641\u0631.",
+    br1_title: "\u0627\u0644\u0628\u0646\u0648\u0643 \u0648\u0627\u0644\u0645\u0627\u0644\u064a\u0629", br1_desc: "\u062e\u0637\u0648\u0637 CI/CD \u0644\u0645\u0646\u0635\u0627\u062a \u0627\u0644\u062a\u062f\u0627\u0648\u0644 \u0648\u0627\u0644\u0623\u0646\u0638\u0645\u0629 \u0627\u0644\u0645\u0635\u0631\u0641\u064a\u0629 \u0627\u0644\u0623\u0633\u0627\u0633\u064a\u0629 \u0648\u0627\u0644\u0627\u0645\u062a\u062b\u0627\u0644 \u0627\u0644\u062a\u0646\u0638\u064a\u0645\u064a \u0641\u064a \u0628\u064a\u0626\u0627\u062a \u0639\u0627\u0644\u064a\u0629 \u0627\u0644\u062a\u0646\u0638\u064a\u0645.",
+    br2_title: "\u0627\u0644\u0627\u062a\u0635\u0627\u0644\u0627\u062a", br2_desc: "\u0623\u062a\u0645\u062a\u0629 \u0627\u0644\u0628\u0646\u064a\u0629 \u0627\u0644\u062a\u062d\u062a\u064a\u0629 \u0648\u0627\u0633\u0639\u0629 \u0627\u0644\u0646\u0637\u0627\u0642 \u0648\u0645\u0631\u0627\u0642\u0628\u0629 \u0627\u0644\u0634\u0628\u0643\u0627\u062a \u0648DevOps \u0644\u0645\u0646\u0635\u0627\u062a 5G \u0644\u0643\u0628\u0627\u0631 \u0627\u0644\u0645\u0634\u063a\u0644\u064a\u0646.",
+    br3_title: "\u0627\u0644\u0633\u064a\u0627\u0631\u0627\u062a", br3_desc: "\u0645\u0646\u0635\u0627\u062a \u0627\u0644\u0645\u0631\u0643\u0628\u0627\u062a \u0627\u0644\u0645\u062a\u0635\u0644\u0629 \u0648CI/CD \u0627\u0644\u0645\u0636\u0645\u0646 \u0648\u062a\u0637\u0628\u064a\u0642\u0627\u062a \u0627\u0644\u0633\u064a\u0627\u0631\u0627\u062a \u0627\u0644\u0633\u062d\u0627\u0628\u064a\u0629 \u0644\u0645\u0635\u0646\u0639\u064a OEM \u0627\u0644\u0645\u062a\u0645\u064a\u0632\u064a\u0646.",
+    br4_title: "\u0627\u0644\u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0627 \u0648\u0627\u0644\u0633\u062d\u0627\u0628\u0629", br4_desc: "\u0628\u0646\u0649 \u0645\u062a\u0639\u062f\u062f\u0629 \u0627\u0644\u0633\u062d\u0627\u0628\u0627\u062a (AWS\u060c Azure\u060c GCP\u060c IBM Cloud) \u0648Kubernetes \u0639\u0644\u0649 \u0646\u0637\u0627\u0642 \u0648\u0627\u0633\u0639 \u0648\u0647\u0646\u062f\u0633\u0629 \u0627\u0644\u0645\u0646\u0635\u0627\u062a.",
+    br5_title: "\u0627\u0644\u0642\u0637\u0627\u0639 \u0627\u0644\u0639\u0627\u0645 \u0648\u0627\u0644\u0645\u0646\u0638\u0645\u0627\u062a", br5_desc: "\u0628\u0646\u064a\u0629 \u062a\u062d\u062a\u064a\u0629 \u0622\u0645\u0646\u0629 \u0644\u0644\u0648\u0643\u0627\u0644\u0627\u062a \u0627\u0644\u062d\u0643\u0648\u0645\u064a\u0629 \u0648\u0627\u0644\u0645\u0646\u0638\u0645\u0627\u062a \u063a\u064a\u0631 \u0627\u0644\u062d\u0643\u0648\u0645\u064a\u0629 \u2013 DevOps \u0645\u062a\u0648\u0627\u0641\u0642 \u0648\u062d\u0644\u0648\u0644 \u0633\u062d\u0627\u0628\u064a\u0629 \u0633\u064a\u0627\u062f\u064a\u0629.",
+    br6_title: "\u0627\u0644\u062a\u062c\u0632\u0626\u0629 \u0648\u0627\u0644\u062a\u062c\u0627\u0631\u0629 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a\u0629", br6_desc: "\u0645\u0646\u0635\u0627\u062a \u0639\u0627\u0644\u064a\u0629 \u0627\u0644\u062d\u0631\u0643\u0629 \u2013 \u062a\u0648\u0633\u064a\u0639 \u062a\u0644\u0642\u0627\u0626\u064a \u0648\u062a\u062d\u0633\u064a\u0646 \u0627\u0644\u0623\u062f\u0627\u0621 \u0648\u0646\u0634\u0631 \u0628\u062f\u0648\u0646 \u062a\u0648\u0642\u0641 \u0644\u0645\u0648\u0627\u0633\u0645 \u0627\u0644\u0630\u0631\u0648\u0629.",
+    footer_copy: "\u00a9 2026 DerSalvador AI \u2013 \u0623\u062a\u0645\u062a\u0629 DevOps \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a", footer_imprint: "\u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a \u0627\u0644\u0642\u0627\u0646\u0648\u0646\u064a\u0629", footer_privacy: "\u0627\u0644\u062e\u0635\u0648\u0635\u064a\u0629"
+  },
+  fr: {
+    nav_services: "Services", nav_branches: "Industries", nav_process: "Processus", nav_tech: "Technologie", nav_pricing: "Forfaits", nav_cta: "R\u00e9server un Appel",
+    hero_badge: "Automatisation AI-DevOps pour les Entreprises",
+    hero_title: 'Vos Pipelines DevOps.<br><em>Automatis\u00e9s intelligemment.</em>',
+    hero_desc: "Nous impl\u00e9mentons des solutions DevOps aliment\u00e9es par l\u2019IA \u2013 benchmark\u00e9es avec IBM ITBench \u2013 qui r\u00e9duisent les temps de d\u00e9ploiement de 70%, r\u00e9solvent automatiquement les incidents et font gagner des heures de travail manuel \u00e0 votre \u00e9quipe.",
+    hero_cta1: "Demander une Analyse Gratuite", hero_cta2: "D\u00e9couvrir les Services",
+    stat1: "Ann\u00e9es d\u2019Exp\u00e9rience DevOps", stat2: "D\u00e9ploiements plus Rapides", stat3: "Pipelines Automatis\u00e9s", stat4: "March\u00e9 AI-Agent DE 2030",
+    services_tag: "Services", services_title: "L\u2019IA Rencontre l\u2019Infrastructure", services_desc: "Nous combinons une expertise DevOps approfondie avec l\u2019IA de pointe \u2013 pour une automatisation qui fonctionne vraiment.",
+    svc1_title: "AI-Incident Response", svc1_desc: "D\u00e9tection, analyse et r\u00e9solution automatiques des incidents d\u2019infrastructure par des agents IA. Propuls\u00e9 par IBM ITBench SRE \u2013 r\u00e9duit le MTTR jusqu\u2019\u00e0 80%.",
+    svc2_title: "CI/CD Intelligent", svc2_desc: "Pipelines optimis\u00e9s par l\u2019IA qui priorisent automatiquement les tests, d\u00e9tectent les goulots d\u2019\u00e9tranglement et planifient les d\u00e9ploiements intelligemment.",
+    svc3_title: "Scan S\u00e9curit\u00e9 IA", svc3_desc: "Analyse continue de Terraform, Helm Charts et manifests K8s pour d\u00e9tecter les vuln\u00e9rabilit\u00e9s \u2013 avant qu\u2019elles n\u2019atteignent la production.",
+    svc4_title: "Monitoring Pr\u00e9dictif", svc4_desc: "Pr\u00e9diction par IA des goulets de capacit\u00e9 et des probl\u00e8mes de performance avant que vos utilisateurs ne les remarquent.",
+    svc5_title: "Automatisation des Workflows", svc5_desc: "Automatisation bas\u00e9e sur n8n des t\u00e2ches DevOps r\u00e9p\u00e9titives : cr\u00e9ation de tickets, documentation, gestion du changement.",
+    svc6_title: "Cloud Cost Intelligence", svc6_desc: "Analyse et optimisation des co\u00fbts cloud par l\u2019IA. Right-sizing automatique et gestion des spot instances.",
+    itb_tag: "Notre Framework Central", itb_title: 'Audit AI-Readiness<br>powered by IBM ITBench',
+    itb_desc1: "Nous utilisons le framework open-source ITBench d\u2019IBM pour tester votre infrastructure avec 94 sc\u00e9narios SRE r\u00e9els. Vous saurez exactement quels incidents l\u2019IA peut d\u00e9j\u00e0 r\u00e9soudre automatiquement \u2013 et o\u00f9 l\u2019expertise humaine reste indispensable.",
+    itb_desc2: "Les benchmarks actuels montrent : les agents IA de pointe ne r\u00e9solvent que 13,8% des sc\u00e9narios SRE. Avec nos optimisations architecturales (syst\u00e8mes multi-agents, state machines, summarizer agents), nous augmentons le taux de r\u00e9solution jusqu\u2019\u00e0 53%.",
+    itb_stat1: "Sc\u00e9narios R\u00e9els", itb_stat2: "Gain de Performance", itb_stat3: "Domaines d\u2019Audit",
+    itb_badge: 'Bas\u00e9 sur <strong>IBM Research &amp; UC Berkeley</strong> \u00b7 ICML 2025 \u00b7 AAAI 2026 \u00b7 Apache 2.0',
+    itb_how: "Comment Fonctionne l\u2019Audit ITBench",
+    itb_step1_title: "D\u00e9ploiement des Sc\u00e9narios", itb_step1_desc: "Nous d\u00e9ployons des sc\u00e9narios d\u2019incidents r\u00e9els dans une copie isol\u00e9e de votre environnement Kubernetes/OpenShift \u2013 z\u00e9ro risque pour la production.",
+    itb_step2_title: "\u00c9valuation des Agents IA", itb_step2_desc: "Nos agents SRE analysent les logs, m\u00e9triques et traces (Prometheus, Jaeger, ClickHouse), diagnostiquent les causes racines et testent les strat\u00e9gies de rem\u00e9diation.",
+    itb_step3_title: "Analyse des D\u00e9faillances MAST", itb_step3_desc: "En utilisant la taxonomie des d\u00e9faillances des syst\u00e8mes multi-agents (MAST), nous identifions pr\u00e9cis\u00e9ment o\u00f9 les agents \u00e9chouent \u2013 et quels changements architecturaux ont le plus d\u2019impact.",
+    itb_step4_title: "Rapport & Feuille de Route", itb_step4_desc: "Vous recevez un rapport d\u00e9taill\u00e9 avec votre score AI-Readiness, des recommandations d\u2019automatisation prioris\u00e9es et des calculs ROI concrets.",
+    proc_tag: "Notre Processus", proc_title: "Pipeline IA en 4 Semaines", proc_desc: "Pas de mois de conseil. Nous livrons une automatisation fonctionnelle.",
+    proc1_title: "Audit d\u2019Infrastructure", proc1_desc: "Analyse de vos pipelines CI/CD existants, monitoring et processus d\u2019incidents. Identification des plus grandes opportunit\u00e9s d\u2019automatisation.",
+    proc2_title: "Strat\u00e9gie IA", proc2_desc: "Feuille de route concr\u00e8te avec cas d\u2019usage prioris\u00e9s, gains de temps attendus et calcul ROI pour chaque \u00e9tape d\u2019automatisation.",
+    proc3_title: "Impl\u00e9mentation", proc3_desc: "Mise en \u0153uvre cl\u00e9 en main des workflows IA directement dans votre infrastructure. Pas de th\u00e9orie \u2013 automatisation fonctionnelle.",
+    proc4_title: "Formation & Transfert", proc4_desc: "Votre \u00e9quipe apprend \u00e0 exploiter et faire \u00e9voluer les syst\u00e8mes IA. Documentation et phase de support incluses.",
+    tech_tag: "Technologie", tech_title: "Stack Technologique Enterprise", tech_desc: "Nous travaillons avec les outils que vous utilisez d\u00e9j\u00e0 \u2013 et les \u00e9tendons avec l\u2019IA et IBM ITBench.",
+    price_tag: "Forfaits", price_title: "Transparent & \u00c9quitable", price_desc: "Choisissez le forfait adapt\u00e9 \u00e0 votre niveau d\u2019automatisation.",
+    price1_sub: "Pour les \u00e9quipes qui veulent tester l\u2019IA", price1_per: " / unique", price1_f1: "Audit ITBench AI-Readiness", price1_f2: "Score & Rapport AI-Readiness", price1_f3: "Feuille de Route IA avec 3 Cas d\u2019Usage", price1_f4: "1 Workflow Automatis\u00e9", price1_f5: "Documentation & 2h Formation", price_inquire: "Demander",
+    price2_sub: "Transformation AI-DevOps Compl\u00e8te", price2_per: " / mois", price2_f1: "Tout de Starter", price2_f2: "5 Workflows Automatis\u00e9s", price2_f3: "D\u00e9ploiement Agent ITBench SRE", price2_f4: "Analyse des D\u00e9faillances MAST", price2_f5: "Monitoring Pr\u00e9dictif", price2_f6: "Optimisation Mensuelle + Support", price_book: "R\u00e9server un Appel",
+    price3_sub: "Pour les infrastructures complexes", price3_amount: "Sur Mesure", price3_f1: "Tout de Professional", price3_f2: "ITBench Complet (SRE + CISO + FinOps)", price3_f3: "Architecture Multi-Agents Personnalis\u00e9e", price3_f4: "Ing\u00e9nieur IA D\u00e9di\u00e9", price3_f5: "Conformit\u00e9 EU AI Act", price_contact: "Nous Contacter",
+    badge_popular: "Le Plus Populaire",
+    cta_title: "Pr\u00eat pour un DevOps Intelligent ?", cta_desc: "Analyse gratuite de 30 minutes de votre infrastructure. Nous vous montrons exactement o\u00f9 l\u2019IA peut vous faire gagner des heures.",
+    form_name: "Votre Nom", form_email: "Votre Adresse E-mail", form_company: "Entreprise", form_team: "Taille de l\u2019\u00e9quipe", form_t1: "1-10 Employ\u00e9s", form_t2: "11-50 Employ\u00e9s", form_t3: "51-200 Employ\u00e9s", form_t4: "200+ Employ\u00e9s", form_submit: "Demander une Analyse Gratuite \u2192", form_success: "Merci ! Nous vous recontacterons dans les 24 heures.",
+    trusted_label: "\u00c9prouv\u00e9 dans toutes les industries",
+    cred_exp: "25+ Ans DevOps & Cloud", cred_aws: "AWS Solutions Architect", cred_rh: "Red Hat Certifi\u00e9", cred_k8s: "Kubernetes Certifi\u00e9", cred_multi: "Multilingue : DE EN PT AR FR",
+    branch_tag: "Industries", branch_title: "\u00c9prouv\u00e9 dans Toutes les Industries", branch_desc: "25+ ans d\u2019exp\u00e9rience pratique dans des environnements r\u00e9glement\u00e9s et haute disponibilit\u00e9.",
+    br1_title: "Banque & Finance", br1_desc: "Pipelines CI/CD pour plateformes de trading, syst\u00e8mes bancaires centraux et conformit\u00e9 r\u00e9glementaire dans des environnements hautement r\u00e9glement\u00e9s.",
+    br2_title: "T\u00e9l\u00e9communications", br2_desc: "Automatisation d\u2019infrastructure \u00e0 grande \u00e9chelle, monitoring r\u00e9seau et DevOps pour plateformes 5G de grands op\u00e9rateurs.",
+    br3_title: "Automobile", br3_desc: "Plateformes de v\u00e9hicules connect\u00e9s, CI/CD embarqu\u00e9 et applications automobiles cloud-native pour OEMs premium.",
+    br4_title: "Technologie & Cloud", br4_desc: "Architectures multi-cloud (AWS, Azure, GCP, IBM Cloud), Kubernetes \u00e0 l\u2019\u00e9chelle et platform engineering.",
+    br5_title: "Secteur Public & ONG", br5_desc: "Infrastructure s\u00e9curis\u00e9e pour agences gouvernementales et ONG \u2013 DevOps conformit\u00e9-first et solutions cloud souveraines.",
+    br6_title: "Retail & E-Commerce", br6_desc: "Plateformes \u00e0 fort trafic \u2013 auto-scaling, optimisation des performances et d\u00e9ploiements z\u00e9ro-downtime pour les pics de saison.",
+    footer_copy: "\u00a9 2026 DerSalvador AI \u2013 Automatisation DevOps par l\u2019IA", footer_imprint: "Mentions L\u00e9gales", footer_privacy: "Confidentialit\u00e9"
+  }
+};
+
+function setLang(lang) {
+  if (!T[lang]) return;
+  var d = T[lang];
+  // Text content
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n');
+    if (d[k]) el.textContent = d[k];
+  });
+  // HTML content (for tags with <em>, <strong>, <br>)
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n-html');
+    if (d[k]) el.innerHTML = d[k];
+  });
+  // Placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n-ph');
+    if (d[k]) el.placeholder = d[k];
+  });
+  // Featured badge
+  var fc = document.querySelector('.pricing-card.featured');
+  if (fc && d.badge_popular) fc.setAttribute('data-badge', d.badge_popular);
+  // Update html lang and direction (RTL for Arabic)
+  document.documentElement.lang = lang;
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+  // Update page title
+  var titles = {en:'DerSalvador AI | AI-Powered DevOps Automation', de:'DerSalvador AI | KI-gest\u00fctzte DevOps-Automatisierung', pt:'DerSalvador AI | Automa\u00e7\u00e3o DevOps com IA', ar:'DerSalvador AI | \u0623\u062a\u0645\u062a\u0629 DevOps \u0628\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a', fr:'DerSalvador AI | Automatisation DevOps par l\u2019IA'};
+  document.title = titles[lang] || titles.en;
+  // Update dropdown button and active option
+  var flags = {en:'&#x1F1EC;&#x1F1E7; EN', de:'&#x1F1E9;&#x1F1EA; DE', pt:'&#x1F1E7;&#x1F1F7; PT', ar:'&#x1F1F2;&#x1F1E6; AR', fr:'&#x1F1EB;&#x1F1F7; FR'};
+  var btn = document.getElementById('langDropdownBtn');
+  if (btn) btn.innerHTML = flags[lang] || flags.en;
+  document.querySelectorAll('.lang-option').forEach(function(o) {
+    o.classList.toggle('active', o.getAttribute('onclick').indexOf("'" + lang + "'") !== -1);
+  });
+  // Close dropdown
+  var dd = document.getElementById('langDropdown');
+  if (dd) dd.classList.remove('open');
+  // Save preference
+  try { localStorage.setItem('lang', lang); } catch(e) {}
+}
+
+// Dropdown toggle
+function toggleLangDropdown() {
+  var dd = document.getElementById('langDropdown');
+  dd.classList.toggle('open');
+}
+
+// Hamburger menu toggle
+function toggleMenu() {
+  var nav = document.getElementById('navLinks');
+  var ham = document.getElementById('hamburger');
+  nav.classList.toggle('open');
+  ham.classList.toggle('active');
+}
+
+// Close dropdown & mobile menu on outside click
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('langDropdown');
+  if (dd && !dd.contains(e.target)) dd.classList.remove('open');
+  var nav = document.getElementById('navLinks');
+  var ham = document.getElementById('hamburger');
+  if (nav && ham && !nav.contains(e.target) && !ham.contains(e.target)) {
+    nav.classList.remove('open');
+    ham.classList.remove('active');
+  }
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    var nav = document.getElementById('navLinks');
+    var ham = document.getElementById('hamburger');
+    if (nav) nav.classList.remove('open');
+    if (ham) ham.classList.remove('active');
+  });
+});
+
+// Load saved language or default to English
+(function() {
+  var saved = null;
+  try { saved = localStorage.getItem('lang'); } catch(e) {}
+  setLang(saved || 'en');
+})();
+</script>
 
 </body>
 </html>
